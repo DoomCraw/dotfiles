@@ -4,7 +4,7 @@
 syntax on
 filetype plugin indent on
 
-autocmd FileType yml,yaml setlocal ts=2 sts=2 sw=2 et ai cuc indentkeys-=0# indentkeys-=<:>
+autocmd FileType yml,yaml setlocal ts=2 sts=2 sw=2 et ai cuc indentkeys-=0# " indentkeys-=<:>
 
 " Color column 80
 highlight ColorColumn ctermbg=6 guibg=lightblue
@@ -98,7 +98,6 @@ autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl
 autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
 autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json
 
-" :CocInstall @yaegassy/coc-ansible
 let g:coc_filetype_map = {
     \ 'yaml.ansible': 'ansible',
   \ }
