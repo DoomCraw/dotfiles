@@ -11,7 +11,7 @@ fi
 _ansible_add_new_role () {
     local role_name=${1:-new_role}
 
-    if [ -d ${role_name} ]; then
+    if [ -d ./roles/${role_name} ]; then
       echo 'Role already exists' # TODO change to "error" function
       exit 1
     fi
