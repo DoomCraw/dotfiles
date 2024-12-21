@@ -23,7 +23,7 @@ ln -s $GIT_FOLDER git
 python3 -m venv ansible
 source ~/ansible/bin/activate
 pip install pip --upgrade
-pip install ansible==6.7.0 ansible-lint==24.7.0 pyyaml==6.0.2 docker==6.1.3 requests==2.32.3 passlib==1.7.4
+pip install ansible==9.13.0 ansible-lint==24.7.0 pyyaml==6.0.2 docker==6.1.3 requests==2.32.3 passlib==1.7.4
 deactivate
 
 mkdir -p ~/.vim/{autoload,bundle}

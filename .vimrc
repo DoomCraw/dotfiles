@@ -79,10 +79,10 @@ autocmd VimEnter * NERDTree | wincmd p
 autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold
 au BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
 au BufRead,BufNewFile */ansible/*.yaml set filetype=yaml.ansible
-" au BufReadPre,BufWritePost *.tf silent execute "!terraform fmt" | redraw!
-" autocmd BufWritePost *.c,*.cpp,*.h silent! !ctags . &
+au BufReadPre,BufWritePost *.tf,*.tfvars silent execute "!terraform fmt" | redraw!
+autocmd BufWritePost *.c,*.cpp,*.h,*.yml,*.yaml,*.tf,*.tfvars,*.ps1,*.psm1,*.py,*.sh silent! !ctags . &
 autocmd VimLeave * NERDTreeClose
-autocmd VimLeave *.tf !terraform validate
+autocmd VimLeave *.tf,*.tfvars !terraform validate
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
 
