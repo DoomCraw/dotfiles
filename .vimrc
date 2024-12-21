@@ -80,6 +80,7 @@ autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold
 au BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
 au BufRead,BufNewFile */ansible/*.yaml set filetype=yaml.ansible
 " au BufReadPre,BufWritePost *.tf silent execute "!terraform fmt" | redraw!
+" autocmd BufWritePost *.c,*.cpp,*.h silent! !ctags . &
 autocmd VimLeave * NERDTreeClose
 autocmd VimLeave *.tf !terraform validate
 " Exit Vim if NERDTree is the only window remaining in the only tab.

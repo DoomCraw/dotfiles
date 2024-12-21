@@ -13,7 +13,7 @@ dotfiles_sync () {
 
 cd ~
 
-rm -rf ansible .aws .bash_profile .tmux.conf .vim .vimrc .ssh
+rm -rf ansible .aws .bash_profile .ctags .tmux.conf .vim .vimrc .ssh
 
 mkdir -p ~/.ssh/controlmasters
 chmod 0700 -R ~/.ssh/controlmasters
