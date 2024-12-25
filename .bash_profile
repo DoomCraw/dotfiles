@@ -82,7 +82,7 @@ alias '....'='cd ../../..'
 # EXPORT ENVIRONMENT VARS
 
 export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
-export TAILSCALE_GATEWAY_SERVER=100.64.0.10
+export TAILSCALE_GATEWAY_SERVER=100.64.0.18
 export EDITOR=vim
 export TERM='xterm-256color'
 # export PS1="\[\e[32m\][\[\e[m\]\[\e[1;91m\]\u\[\e[m\]\[\e[1;96m\]@\[\e[m\]\[\e[92m\]\h\[\e[m\]:\[\e[36m\]\w\[\e[m\]\[\e[32m\]]\[\e[m\]\[\e[32;98m\]\nλ\[\e[m\] "
