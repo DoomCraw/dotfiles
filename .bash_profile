@@ -29,7 +29,7 @@ _ansible_add_new_role () {
 }
 
 _ansible_playbook () {
-    source $HOME/ansible-venv/bin/activate
+    source $HOME/ansible/bin/activate
     ansible-playbook $@
     deactivate
 }
@@ -116,8 +116,8 @@ fi
 
 # Create SSH tunnels to ESXi
 if ! ps axu | grep -Pq 'ssh.+127.0.0.1:\d{1}443'; then
-    ssh -o ControlMaster=no -f -p 22 -N -C -L 127.0.0.1:1443:10.18.42.43:443 ubuntu@$TAILSCALE_GATEWAY_SERVER
-    ssh -o ControlMaster=no -f -p 22 -N -C -L 127.0.0.1:2443:10.18.42.44:443 ubuntu@$TAILSCALE_GATEWAY_SERVER
+    ssh -o ControlMaster=no -f -p 22 -N -C -L 127.0.0.1:1443:10.18.42.43:443 $TAILSCALE_GATEWAY_SERVER
+    ssh -o ControlMaster=no -f -p 22 -N -C -L 127.0.0.1:2443:10.18.42.44:443 $TAILSCALE_GATEWAY_SERVER
 fi
 
 # Start tmux
