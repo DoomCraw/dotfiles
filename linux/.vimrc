@@ -50,6 +50,8 @@ set background=dark " dark, light
 " let g:everforest_better_performance = 1
 " let g:airline_theme = 'everforest'
 
+set tabpagemax=15
+
 let g:gruvbox_contrast_dark='hard'
 if has('termguicolors')
   set termguicolors
@@ -143,7 +145,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '>'
 let g:airline#extensions#tabline#formatter = 'default'
-let g:airline_statusline_ontop=1
+let g:airline_statusline_ontop=0
 let g:airline_theme='google_dark'
 
 function! AirLineInit()
