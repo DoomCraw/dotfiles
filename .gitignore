@@ -1,5 +1,6 @@
 tags
 .vim
+!linux/.vim/
 !linux/.vim/coc-settings.json
 .vimrc
 !linux/.vimrc
