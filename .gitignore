@@ -1,9 +1,11 @@
-*tags
-*.vim
-!linux/.vim
-*.vimrc
+tags
+.vim
+!linux/.vim/coc-settings.json
+.vimrc
 !linux/.vimrc
-*.vscode
-linux/.ssh
+.vscode
+linux/.ssh/*/
 !linux/.ssh/config
+linux/.ssh/controlmasters/*
+!linux/.ssh/controlmasters/
 !linux/.ssh/controlmasters/.gitkeep
