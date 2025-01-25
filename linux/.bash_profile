@@ -55,13 +55,23 @@ init_ssh_agent () {
     fi
 
     if ! ssh-add -L > /dev/null; then
-        ssh-add -t 605000 ${HOME}/.ssh/vzaytsev_devs.pem.key
-        ssh-add -t 605000 ${HOME}/.ssh/LinuxServersDefault.pem
-        # find .ssh/ -type f ! -name *.pub ! -name *config* ! -name *known_hosts* | \
-        #   while read key; do
-        #     ssh-add -t 605000 ${HOME}/${key} > /dev/null 2>&1;
-        #   done
+        for pubkey in $@; do
+            ssh-add -t 605000 $pubkey
+        done
     fi
+}
+
+create_ssh_tunnels () {
+    local ssh_cmd="ssh -o StrictHostKeyChecking=no \
+                       -o ControlMaster=no \
+                       -o ServerAliveInterval=60 \
+                       -o ExitOnForwardFailure=yes"
+
+    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:4444:10.18.42.1:4444 valeriy.z@${SSH_PROXY_HOST}
+    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:1443:10.18.42.43:443 valeriy.z@${SSH_PROXY_HOST}
+    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:2443:10.18.42.44:443 valeriy.z@${SSH_PROXY_HOST}
+ 
+    unset ssh_cmd
 }
 
 # ALIASES
@@ -81,8 +91,8 @@ alias '....'='cd ../../..'
 
 # EXPORT ENVIRONMENT VARS
 
-export SSH_AUTH_SOCK=$HOME/.ssh/agent.sock
-export TAILSCALE_GATEWAY_SERVER=100.64.0.18
+export SSH_AUTH_SOCK=$HOME/.ssh/agent.socket
+export SSH_PROXY_HOST=100.64.0.18
 export EDITOR=vim
 export TERM='xterm-256color'
 # export PS1="\[\e[32m\][\[\e[m\]\[\e[1;91m\]\u\[\e[m\]\[\e[1;96m\]@\[\e[m\]\[\e[92m\]\h\[\e[m\]:\[\e[36m\]\w\[\e[m\]\[\e[32m\]]\[\e[m\]\[\e[32;98m\]\nλ\[\e[m\] "
@@ -107,6 +117,7 @@ eval $(dircolors ~/.dircolors)
 
 # Initialize ssh-agent with keys
 # init_ssh_agent
+# Using npiperelay for WSL to proxy ssh-agent keys from Windows host machine
 ss -a | grep -q $SSH_AUTH_SOCK
 if [ $? -ne 0 ]; then
     rm -f $SSH_AUTH_SOCK
@@ -114,11 +125,10 @@ if [ $? -ne 0 ]; then
     (setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"$npiperelaypath/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &) >/dev/null 2>&1
 fi
 
-# Create SSH tunnels to ESXi
-if ! ps axu | grep -Pq 'ssh.+127.0.0.1:\d{1}443'; then
-    ssh -o ControlMaster=no -f -p 22 -N -C -L 127.0.0.1:1443:10.18.42.43:443 valeriy.z@$TAILSCALE_GATEWAY_SERVER
-    ssh -o ControlMaster=no -f -p 22 -N -C -L 127.0.0.1:2443:10.18.42.44:443 valeriy.z@$TAILSCALE_GATEWAY_SERVER
-    ssh -o ControlMaster=no -f -p 22 -N -C -L 127.0.0.1:4444:10.18.42.1:4444 valeriy.z@$TAILSCALE_GATEWAY_SERVER
+# Create SSH tunnels to ESXi servers and office router
+if ! ps aux | grep -Pq 'ssh.+127.0.0.1:\d{1}44(3|4)' && \
+        tailscale ping ${SSH_PROXY_HOST} >/dev/null 2>&1; then
+    create_ssh_tunnels
 fi
 
 # Start tmux
