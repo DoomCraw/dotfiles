@@ -1,3 +1,4 @@
+" TODO: Double check .vimrc and remove all unused
 " Load local vimrc from project directory (set this in your main vimrc)
 " set exrc
 
