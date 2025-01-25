@@ -10,3 +10,4 @@ linux/.ssh/*
 !linux/.ssh/config
 linux/.ssh/controlmasters/*
 !linux/.ssh/controlmasters/
+!linux/.ssh/controlmasters/.gitkeep
