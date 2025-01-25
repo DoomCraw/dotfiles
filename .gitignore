@@ -6,7 +6,7 @@ linux/.vim/*
 .vimrc
 !linux/.vimrc
 .vscode
-linux/.ssh/*/
+linux/.ssh/*
 !linux/.ssh/config
 linux/.ssh/controlmasters/*
 !linux/.ssh/controlmasters/
