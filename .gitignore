@@ -2,3 +2,6 @@
 .vim
 *.vimrc
 *.vscode
+*.ssh
+!.ssh/config
+!.ssh/controlmasters
