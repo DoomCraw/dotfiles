@@ -1,7 +1,7 @@
 *tags
 .vim
-*.vimrc
-*.vscode
-*.ssh
-!*.ssh/config
-!*.ssh/controlmasters/.gitkeep
+.vimrc
+.vscode
+linux/.ssh
+!linux/.ssh/config
+!linux/.ssh/controlmasters/.gitkeep
