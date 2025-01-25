@@ -3,5 +3,5 @@
 *.vimrc
 *.vscode
 *.ssh
-!.ssh/config
-!.ssh/controlmasters
+!*.ssh/config
+!*.ssh/controlmasters/.gitkeep
