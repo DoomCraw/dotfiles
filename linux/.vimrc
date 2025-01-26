@@ -52,6 +52,7 @@ set background=dark " dark, light
 " let g:airline_theme = 'everforest'
 
 set tabpagemax=15
+set showtabline=2
 
 let g:gruvbox_contrast_dark='hard'
 if has('termguicolors')
