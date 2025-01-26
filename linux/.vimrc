@@ -73,6 +73,7 @@ map <leader>tc :tabclose<cr>
 map <leader>to :tabonly<cr>
 map <leader>te :tabedit
 map ZA :qall!<cr>
+map ZX :q!<cr>
 map <F5> :NERDTreeToggle<CR>
 
 call pathogen#infect()
