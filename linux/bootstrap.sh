@@ -24,6 +24,8 @@ python3 -m venv ansible
 source ~/ansible/bin/activate
 pip install pip --upgrade
 pip install ansible==9.13.0 ansible-lint==24.7.0 pyyaml==6.0.2 docker==6.1.3 requests==2.32.3 passlib==1.7.4
+pip install pypsrp==1.0.0 pywinrm==0.5.0
+pip install dnspython==2.7.0
 deactivate
 
 mkdir -p ~/.vim/{autoload,bundle}
