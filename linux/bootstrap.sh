@@ -27,6 +27,8 @@ pip install ansible==9.13.0 ansible-lint==24.7.0 pyyaml==6.0.2 docker==6.1.3 req
 pip install pypsrp==1.0.0 pywinrm==0.5.0
 pip install dnspython==2.7.0
 pip install pyvmomi==8.0.3.0.1
+pip install "pypsrp[credssp]<=1.0.0"  # for psrp
+pip install "pywinrm[credssp]>=0.4.0"  # for winrm
 deactivate
 
 mkdir -p ~/.vim/{autoload,bundle}
