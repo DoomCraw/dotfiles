@@ -29,6 +29,7 @@ pip install dnspython==2.7.0
 pip install pyvmomi==8.0.3.0.1
 pip install "pypsrp[credssp]<=1.0.0"  # for psrp
 pip install "pywinrm[credssp]>=0.4.0"  # for winrm
+pip install boto3 # for aws
 pip install sophosfirewall-python # for SOPHOS router
 deactivate
 
