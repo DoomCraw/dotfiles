@@ -1,5 +1,3 @@
-#TODO try OhMyPoSH
-#TODO tye posh-git
 ## Environment
 $ENV:PATH = @(
     'C:\Windows\system32',
@@ -20,8 +18,23 @@ $ENV:PATH = @(
     'C:\Users\doomc\AppData\Local\Programs\Python\Python312\Scripts\',
     'C:\Users\doomc\AppData\Local\Programs\Python\Python312\',
     'C:\Users\doomc\AppData\Local\Programs\Python\Launcher\',
-    'C:\Users\doomc\AppData\Local\Programs\Microsoft VS Code\bin'
+    'C:\Users\doomc\AppData\Local\Programs\Microsoft VS Code\bin',
+    (gci 'C:\Program Files\Git\' -Filter grep.exe -File -Recurse).DirectoryName
 ) -join ';'
+
+## Aliases
+if (Test-Path Alias:\ls) { rm Alias:\ls }
+if (Test-Path Alias:\curl) { rm Alias:\curl }
+
+${function:grep}  = { & grep.exe --color @args }
+${function:curl}  = { & curl.exe --ssl-no-revoke @args }
+${function:ls}    = { & ls.exe --color @args }
+${function:ll}    = { & ls.exe --color -la @args }
+${function:unzip} = { Expand-Archive @args }
+${function:\..} = { cd .. }
+${function:...} = { cd ../.. }
+${function:....} = { cd ../../.. }
+${function:.....} = { cd ../../../.. }
 
 ## Add functions
 function Renew-NetworkSettings {
@@ -160,5 +173,6 @@ if ($?) {
     Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock $scriptblock
 }
 
-# https://starship.rs/guide/
-Invoke-Expression (& 'C:\Program Files\starship\bin\starship.exe' init powershell)
+if ((gci 'C:\Program Files\' -Filter starship.exe -File -Recurse).Count -eq 0) { & winget.exe install -s winget --id Starship.Starship }
+
+Invoke-Expression (& (gci 'C:\Program Files\' -Filter starship.exe -File -Recurse).FullName init powershell)
