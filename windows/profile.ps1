@@ -1,10 +1,6 @@
-# TODO try OhMyPoSH
-# TODO tye posh-git
-# TODO https://github.com/jayharris/dotfiles-windows/blob/master/aliases.ps1
-# TODO https://github.com/KevinSilvester/wezterm-config/tree/master
-
+#TODO try OhMyPoSH
+#TODO tye posh-git
 ## Environment
-# TODO double check PATH variable
 $ENV:PATH = @(
     'C:\Windows\system32',
     'C:\Windows',
@@ -163,3 +159,6 @@ Get-Command -Name dotnet -ErrorAction SilentlyContinue -ErrorVariable dotnet_err
 if ($?) {
     Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock $scriptblock
 }
+
+# https://starship.rs/guide/
+Invoke-Expression (& 'C:\Program Files\starship\bin\starship.exe' init powershell)

@@ -67,15 +67,20 @@ create_ssh_tunnels () {
                        -o ServerAliveInterval=60 \
                        -o ExitOnForwardFailure=yes"
 
-    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:4444:10.18.42.1:4444 valeriy.z@${SSH_PROXY_HOST}
-    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:1443:10.18.42.43:443 valeriy.z@${SSH_PROXY_HOST}
-    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:2443:10.18.42.44:443 valeriy.z@${SSH_PROXY_HOST}
+    # ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:4444:10.18.42.1:4444 valeriy.z@${SSH_PROXY_HOST}
+    # ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:1443:10.18.42.43:443 valeriy.z@${SSH_PROXY_HOST}
+    # ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:2443:10.18.42.44:443 valeriy.z@${SSH_PROXY_HOST}
+    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:4444:10.18.42.1:4444 ubuntu@${SSH_PROXY_HOST}
+    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:1443:10.18.42.43:443 ubuntu@${SSH_PROXY_HOST}
+    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:2443:10.18.42.44:443 ubuntu@${SSH_PROXY_HOST}
  
     unset ssh_cmd
 }
 
 # ALIASES
 
+alias getpasswd='tr -dc "A-Za-z0-9@!#%^$&*()-_=+" < /dev/urandom | fold -w ${PASSLEN:-16} | head -1'
+alias getpasswd_alnum='tr -dc [:alnum:] < /dev/urandom | fold -w ${PASSLEN:-16} | head -1'
 alias ansible_add_new_role='_ansible_add_new_role'
 alias ansible-playbook='_ansible_playbook $@'
 alias check_port='netcat -vzw3'
@@ -91,8 +96,10 @@ alias '....'='cd ../../..'
 
 # EXPORT ENVIRONMENT VARS
 
+export PATH=${PATH}:$(pwd)/bin/
 export SSH_AUTH_SOCK=$HOME/.ssh/agent.socket
-export SSH_PROXY_HOST=100.64.0.18
+# export SSH_PROXY_HOST=100.64.0.18
+export SSH_PROXY_HOST=100.64.0.78
 export EDITOR=vim
 export TERM='xterm-256color'
 # export PS1="\[\e[32m\][\[\e[m\]\[\e[1;91m\]\u\[\e[m\]\[\e[1;96m\]@\[\e[m\]\[\e[92m\]\h\[\e[m\]:\[\e[36m\]\w\[\e[m\]\[\e[32m\]]\[\e[m\]\[\e[32;98m\]\nλ\[\e[m\] "
