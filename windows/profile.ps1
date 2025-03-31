@@ -1,5 +1,5 @@
 ## Environment
-$ENV:PATH = @(
+$env:Path = @(
     'C:\Windows\system32',
     'C:\Windows',
     'C:\Windows\System32\Wbem',
