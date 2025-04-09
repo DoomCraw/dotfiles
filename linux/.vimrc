@@ -59,9 +59,9 @@ if has('termguicolors')
   set termguicolors
 endif
 
-" autocmd VIMEnter * ++nested colorscheme everforest
+autocmd VIMEnter * ++nested colorscheme everforest
 " autocmd VimEnter * ++nested colorscheme gruvbox
-autocmd VimEnter * ++nested colorscheme iceberg
+" autocmd VimEnter * ++nested colorscheme iceberg
 " autocmd VimEnter * ++nested colorscheme moody
 " autocmd VimEnter * ++nested colorscheme distinguished
 
@@ -85,7 +85,7 @@ autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold
 au BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
 au BufRead,BufNewFile */ansible/*.yaml set filetype=yaml.ansible
 au BufReadPre,BufWritePost *.tf,*.tfvars silent execute "!terraform fmt" | redraw!
-autocmd BufWritePost *.c,*.cpp,*.h,*.yml,*.yaml,*.tf,*.tfvars,*.ps1,*.psm1,*.py,*.sh silent! !ctags . &
+" autocmd BufWritePost *.c,*.cpp,*.h,*.yml,*.yaml,*.tf,*.tfvars,*.ps1,*.psm1,*.py,*.sh silent! !ctags . &
 autocmd VimLeave * NERDTreeClose
 autocmd VimLeave *.tf,*.tfvars !terraform validate
 " Exit Vim if NERDTree is the only window remaining in the only tab.

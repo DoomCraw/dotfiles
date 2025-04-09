@@ -62,19 +62,19 @@ init_ssh_agent () {
 }
 
 create_ssh_tunnels () {
-    local ssh_cmd="ssh -o StrictHostKeyChecking=no \
-                       -o ControlMaster=no \
-                       -o ServerAliveInterval=60 \
-                       -o ExitOnForwardFailure=yes"
+    local ssh_proxy_cmd="ssh -o StrictHostKeyChecking=no \
+                             -o ControlMaster=no \
+                             -o ServerAliveInterval=60 \
+                             -o ExitOnForwardFailure=yes \
+                             -p 22 \
+                             -nfCNT"
 
-    # ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:4444:10.18.42.1:4444 valeriy.z@${SSH_PROXY_HOST}
-    # ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:1443:10.18.42.43:443 valeriy.z@${SSH_PROXY_HOST}
-    # ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:2443:10.18.42.44:443 valeriy.z@${SSH_PROXY_HOST}
-    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:4444:10.18.42.1:4444 ubuntu@${SSH_PROXY_HOST}
-    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:1443:10.18.42.43:443 ubuntu@${SSH_PROXY_HOST}
-    ${ssh_cmd} -p 22 -nfCNT -L 127.0.0.1:2443:10.18.42.44:443 ubuntu@${SSH_PROXY_HOST}
+    ${ssh_proxy_cmd} -L 127.0.0.1:4444:10.18.42.1:4444 ${SSH_PROXY_USER}@${SSH_PROXY_HOST}
+    ${ssh_proxy_cmd} -L 127.0.0.1:5443:10.18.42.28:443 ${SSH_PROXY_USER}@${SSH_PROXY_HOST}
+    ${ssh_proxy_cmd} -L 127.0.0.1:1443:10.18.42.43:443 ${SSH_PROXY_USER}@${SSH_PROXY_HOST}
+    ${ssh_proxy_cmd} -L 127.0.0.1:2443:10.18.42.44:443 ${SSH_PROXY_USER}@${SSH_PROXY_HOST}
  
-    unset ssh_cmd
+    unset ssh_proxy_cmd
 }
 
 # ALIASES
@@ -98,8 +98,10 @@ alias '....'='cd ../../..'
 
 export PATH=${PATH}:$(pwd)/bin/
 export SSH_AUTH_SOCK=$HOME/.ssh/agent.socket
-# export SSH_PROXY_HOST=100.64.0.18
-export SSH_PROXY_HOST=100.64.0.78
+export SSH_PROXY_USER=valeriy.z
+export SSH_PROXY_HOST=100.64.0.18
+# export SSH_PROXY_USER=ubuntu
+# export SSH_PROXY_HOST=100.64.0.78
 export EDITOR=vim
 export TERM='xterm-256color'
 # export PS1="\[\e[32m\][\[\e[m\]\[\e[1;91m\]\u\[\e[m\]\[\e[1;96m\]@\[\e[m\]\[\e[92m\]\h\[\e[m\]:\[\e[36m\]\w\[\e[m\]\[\e[32m\]]\[\e[m\]\[\e[32;98m\]\nλ\[\e[m\] "
@@ -142,3 +144,5 @@ fi
 if [ -z $TMUX ]; then
     tmux
 fi
+
+pushd ~/git/job/pareidolia/ansible
