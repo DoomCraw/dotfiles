@@ -29,17 +29,9 @@ _ansible_add_new_role () {
 }
 
 _ansible_playbook () {
-    source $HOME/ansible/bin/activate
+    source $ANSIBLE_VENV_PATH/bin/activate
     ansible-playbook $@
     deactivate
-}
-
-_ssh_tunnels () {
-    ps axu | grep -i ssh | grep -Evi 'grep|ssh-agent'
-}
-
-_stop_ssh_tunnels () {
-    _ssh_tunnels | awk -F" " '{print $2}' | xargs -I {} /bin/kill {}
 }
 
 init_ssh_agent () {
@@ -61,7 +53,15 @@ init_ssh_agent () {
     fi
 }
 
-create_ssh_tunnels () {
+_list_ssh_tunnels () {
+    ps axu | grep -i 'ssh' | grep -Evi 'grep|ssh-agent'
+}
+
+_down_ssh_tunnels () {
+    _list_ssh_tunnels | awk -F" " '{print $2}' | xargs -I {} /bin/kill {}
+}
+
+_up_ssh_tunnels () {
     local ssh_proxy_cmd="ssh -o StrictHostKeyChecking=no \
                              -o ControlMaster=no \
                              -o ServerAliveInterval=60 \
@@ -69,10 +69,10 @@ create_ssh_tunnels () {
                              -p 22 \
                              -nfCNT"
 
-    ${ssh_proxy_cmd} -L 127.0.0.1:4444:10.18.42.1:4444 ${SSH_PROXY_USER}@${SSH_PROXY_HOST}
-    ${ssh_proxy_cmd} -L 127.0.0.1:5443:10.18.42.28:443 ${SSH_PROXY_USER}@${SSH_PROXY_HOST}
-    ${ssh_proxy_cmd} -L 127.0.0.1:1443:10.18.42.43:443 ${SSH_PROXY_USER}@${SSH_PROXY_HOST}
-    ${ssh_proxy_cmd} -L 127.0.0.1:2443:10.18.42.44:443 ${SSH_PROXY_USER}@${SSH_PROXY_HOST}
+    ${ssh_proxy_cmd} -L 127.0.0.1:4444:10.18.42.1:4444 ${SSH_PROXY}
+    ${ssh_proxy_cmd} -L 127.0.0.1:5443:10.18.42.29:443 ${SSH_PROXY}
+    ${ssh_proxy_cmd} -L 127.0.0.1:1443:10.18.42.43:443 ${SSH_PROXY}
+    ${ssh_proxy_cmd} -L 127.0.0.1:2443:10.18.42.44:443 ${SSH_PROXY}
  
     unset ssh_proxy_cmd
 }
@@ -83,9 +83,11 @@ alias getpasswd='tr -dc "A-Za-z0-9@!#%^$&*()-_=+" < /dev/urandom | fold -w ${PAS
 alias getpasswd_alnum='tr -dc [:alnum:] < /dev/urandom | fold -w ${PASSLEN:-16} | head -1'
 alias ansible_add_new_role='_ansible_add_new_role'
 alias ansible-playbook='_ansible_playbook $@'
-alias check_port='netcat -vzw3'
-alias ssh_tunnels='_ssh_tunnels'
-alias stop_ssh_tunnels='_stop_ssh_tunnels'
+alias nc='nc -vzw3 $@'
+alias tun='_list_ssh_tunnels'
+alias tundown='_down_ssh_tunnels'
+alias tunup='_up_ssh_tunnels'
+alias kl='ssh-add -L | cut -d" " -f3'
 alias tmux='tmux attach -t 0 || tmux'
 alias ssh='ssh -o StrictHostKeyChecking=no'
 alias s='ls -l'
@@ -96,24 +98,18 @@ alias '....'='cd ../../..'
 
 # EXPORT ENVIRONMENT VARS
 
+export ANSIBLE_VENV_PATH=~/ansible
 export PATH=${PATH}:$(pwd)/bin/
-export SSH_AUTH_SOCK=$HOME/.ssh/agent.socket
-export SSH_PROXY_USER=valeriy.z
-export SSH_PROXY_HOST=100.64.0.18
-# export SSH_PROXY_USER=ubuntu
-# export SSH_PROXY_HOST=100.64.0.78
+export SSH_AUTH_SOCK=~/.ssh/agent.socket
+export SSH_PROXY=valeriy.z@100.64.0.18
 export EDITOR=vim
 export TERM='xterm-256color'
-# export PS1="\[\e[32m\][\[\e[m\]\[\e[1;91m\]\u\[\e[m\]\[\e[1;96m\]@\[\e[m\]\[\e[92m\]\h\[\e[m\]:\[\e[36m\]\w\[\e[m\]\[\e[32m\]]\[\e[m\]\[\e[32;98m\]\nλ\[\e[m\] "
 export PS1="\[\e[36m\]\w\[\e[m\]\[\e[32m\]\[\e[m\]\[\e[32;98m\]\nλ\[\e[m\] "
 export PROMPT_COMMAND="echo"
-# export ANSIBLE_VAULT_PASSWORD=$(/usr/bin/keepassxc-cli show -sa Password /mnt/d/yandex_disk/JobSecrets.kdbx ANSIBLE_VAULT_PASSWORD)
-# read -rsp 'Enter ansible vault password: ' ANSIBLE_VAULT_PASSWORD
-# export ANSIBLE_VAULT_PASSWORD=${ANSIBLE_VAULT_PASSWORD}
 
 # MAIN
 
-cd $HOME
+cd ~
 
 complete -C '/usr/local/bin/aws_completer' aws
 complete -C /usr/bin/terraform terraform
@@ -137,12 +133,10 @@ fi
 # Create SSH tunnels to ESXi servers and office router
 if ! ps aux | grep -Pq 'ssh.+127.0.0.1:\d{1}44(3|4)' && \
         tailscale ping ${SSH_PROXY_HOST} >/dev/null 2>&1; then
-    create_ssh_tunnels
+    tunup &
 fi
 
 # Start tmux
 if [ -z $TMUX ]; then
     tmux
 fi
-
-pushd ~/git/job/pareidolia/ansible
