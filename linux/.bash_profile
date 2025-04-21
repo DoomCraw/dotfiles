@@ -98,10 +98,10 @@ alias '....'='cd ../../..'
 
 # EXPORT ENVIRONMENT VARS
 
-export ANSIBLE_VENV_PATH=~/ansible
-export PATH=${PATH}:$(pwd)/bin/
+export ANSIBLE_VENV_PATH=~/.ansible_venv
 export SSH_AUTH_SOCK=~/.ssh/agent.socket
 export SSH_PROXY=valeriy.z@100.64.0.18
+export PATH=${PATH}:${ANSIBLE_VENV_PATH}/bin
 export EDITOR=vim
 export TERM='xterm-256color'
 export PS1="\[\e[36m\]\w\[\e[m\]\[\e[32m\]\[\e[m\]\[\e[32;98m\]\nλ\[\e[m\] "
@@ -110,9 +110,6 @@ export PROMPT_COMMAND="echo"
 # MAIN
 
 cd ~
-
-complete -C '/usr/local/bin/aws_completer' aws
-complete -C /usr/bin/terraform terraform
 
 if [ ! -f ~/.dircolors ]; then
     dircolors --print-database > ~/.dircolors
