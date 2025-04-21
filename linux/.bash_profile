@@ -111,10 +111,6 @@ export PROMPT_COMMAND="echo"
 
 cd ~
 
-if [ ! -f ~/.dircolors ]; then
-    dircolors --print-database > ~/.dircolors
-fi
-
 eval $(dircolors ~/.dircolors)
 
 # Initialize ssh-agent with keys

@@ -65,6 +65,8 @@ popd
 dotfiles_sync
 ssh_perms
 
+dircolors --print-database > ~/.dircolors
+
 unset DOTFILES_ROOT ANSIBLE_VENV_NAME ANSIBLE_VENV_PIP_REQUIREMENTS ANSIBLE_VENV_GALAXY_REQUIREMENTS
 unset dotfiles_sync ssh_perms plugins
 
