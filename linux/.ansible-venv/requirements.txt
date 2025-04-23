@@ -3,6 +3,7 @@ ansible==9.13.0
 boto3==1.37.14
 dnspython==2.7.0
 docker==6.1.3
+hetzner==0.8.3
 passlib==1.7.4
 pypsrp==0.8.1
 pypsrp[credssp]<=1.0.0
