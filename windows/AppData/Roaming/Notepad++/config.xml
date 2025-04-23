@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <NotepadPlus>
+    <FindHistory nbMaxFindHistoryPath="10" nbMaxFindHistoryFilter="10" nbMaxFindHistoryFind="10" nbMaxFindHistoryReplace="10" matchWord="no" matchCase="no" wrap="yes" directionDown="yes" fifRecuisive="yes" fifInHiddenFolder="no" fifProjectPanel1="no" fifProjectPanel2="no" fifProjectPanel3="no" fifFilterFollowsDoc="no" fifFolderFollowsDoc="no" searchMode="0" transparencyMode="1" transparency="150" dotMatchesNewline="no" isSearch2ButtonsMode="no" regexBackward4PowerUser="no" bookmarkLine="no" purge="no">
+        <Filter name="" />
+        <Find name="unkn" />
+        <Find name="wslpath" />
+        <Find name="dir" />
+        <Find name="GIT_FOLDER" />
+        <Find name="${" />
+        <Find name="oom" />
+        <Find name="top" />
+        <Find name="docker" />
+        <Find name="casandra" />
+        <Find name="sed -i" />
+        <Replace name="$NTPServerAddress" />
+        <Replace name="Set-Registry" />
+        <Replace name="Set-RegistryPrameter" />
+    </FindHistory>
+    <History nbMaxFile="10" inSubMenu="no" customLength="-1">
+        <File filename="D:\yandex_disk\compare\ansible-pareidolia\README.md" />
+        <File filename="D:\pareidolia-stage\pareidolia\compose.jsonnet" />
+        <File filename="C:\Users\doomc\Downloads\CURRENT_MAINTAINER" />
+        <File filename="C:\Users\doomc\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1" />
+        <File filename="C:\Users\doomc\Documents\WindowsPowerShell\profile.ps1" />
+        <File filename="D:\git\personal\aws\tailscale\main.tf" />
+        <File filename="D:\git\personal\dotfiles\linux\.ansible-venv\requirements.txt" />
+        <File filename="D:\git\personal\windows_unattend\wsl.ps1" />
+        <File filename="D:\git\personal\windows_unattend\wsl_init.sh" />
+    </History>
+    <ProjectPanels>
+        <ProjectPanel id="0" workSpaceFile="" />
+        <ProjectPanel id="1" workSpaceFile="" />
+        <ProjectPanel id="2" workSpaceFile="" />
+    </ProjectPanels>
     <ColumnEditor choice="number">
         <text content="" />
         <number initial="-1" increase="-1" repeat="-1" formatChoice="dec" leadingChoice="none" />
@@ -11,8 +43,8 @@
         <GUIConfig name="ScintillaViewsSplitter">vertical</GUIConfig>
         <GUIConfig name="UserDefineDlg" position="undocked">hide</GUIConfig>
         <GUIConfig name="TabSetting" replaceBySpace="yes" size="4" />
-        <GUIConfig name="AppPosition" x="0" y="0" width="1024" height="700" isMaximized="yes" />
-        <GUIConfig name="FindWindowPosition" left="1366" top="834" right="2565" bottom="1520" isLessModeOn="no" />
+        <GUIConfig name="AppPosition" x="905" y="0" width="1024" height="700" isMaximized="yes" />
+        <GUIConfig name="FindWindowPosition" left="509" top="274" right="1411" bottom="800" isLessModeOn="no" />
         <GUIConfig name="FinderConfig" wrappedLines="no" purgeBeforeEverySearch="no" showOnlyOneEntryPerFoundLine="yes" />
         <GUIConfig name="noUpdate" intervalDays="15" nextUpdateDate="20241108">yes</GUIConfig>
         <GUIConfig name="Auto-detection">yes</GUIConfig>

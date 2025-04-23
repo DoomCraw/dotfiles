@@ -1,5 +1,5 @@
 #------------------------------------------------------ PYTHON3 SNIPPETS -------------------------------------------------
-# Полезные библиотеки
+# Useful python libs
 # https://github.com/docopt/docopt - creates beautiful command-line interfaces
 # https://pypi.org/project/texttable/ - рисует собственно текстовые таблички в консоли
 

@@ -1,0 +1,41 @@
+[general]
+live_config_reload = true
+ipc_socket = false
+import = [
+    "C:\\Users\\doomc\\AppData\\Roaming\\alacritty\\themes\\themes\\autumn.toml"
+]
+
+[env]
+TERM = "xterm-256color"
+DEFAULT_WSL = "workspace"
+
+[window]
+# dimensions = { columns = 100, lines = 80 }
+dynamic_title = false
+title = "WSL: workspace"
+startup_mode = "Maximized"
+padding = { x = 0, y = 0 }
+dynamic_padding = true
+decorations = "Full"
+decorations_theme_variant = "Dark" 
+opacity = 1.0
+
+[scrolling]
+history = 100000
+multiplier = 10
+
+[font]
+bold = { style = "Bold" }
+
+[terminal]
+shell = { program = "powershell", args = ["-NoLogo", "-Command", "wsl -d ${env:DEFAULT_WSL}"] }
+
+[keyboard]
+bindings = [
+    { key = "N",  mods = "Shift|Control", action = "CreateNewWindow" },
+    { key = "I",  mods = "Shift|Control", action = "SpawnNewInstance" },
+    { key = "P",  mods = "Shift|Control", command = { program = "alacritty.exe", args = ["-T", "PowerShell", "-e", "powershell -NoLogo -NoExit -Command cd ${env:USERPROFILE}"] } },
+    { key = "S",  mods = "Shift|Control", command = { program = "alacritty.exe", args = ["-o", "window.startup_mode='Windowed'", "-o", "window.position.x=960", "-o", "window.position.y=0", "-o", "window.dimensions.columns=79", "-o", "window.dimensions.lines=37", "-T", "PowerShell: Side", "-e", "powershell -NoLogo -NoExit -Command cd ${env:USERPROFILE}"] } },
+    { key = "J",  mods = "Control", chars = "\r" },
+    { key = "E",  mods = "Shift|Control", action = "Quit" }
+]

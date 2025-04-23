@@ -12,37 +12,12 @@
             "id": "User.copy.644BA8F2"
         },
         {
-            "command": "unbound",
-            "keys": "ctrl+v"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+c"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+insert"
-        },
-        {
-            "command": "unbound",
-            "keys": "enter"
-        },
-        {
-            "command": "unbound",
-            "keys": "shift+insert"
-        },
-        {
-            "command": "unbound",
-            "keys": "f11"
-        },
-        {
             "command": "paste",
             "id": "User.paste"
         },
         {
             "command": "find",
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
+            "id": "User.find"
         },
         {
             "command": 
@@ -51,13 +26,47 @@
                 "split": "auto",
                 "splitMode": "duplicate"
             },
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
+            "id": "User.splitPane.A6751878"
         }
     ],
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{4ce28d76-a14f-4a39-ae77-ac861a391c1e}",
+    "keybindings": 
+    [
+        {
+            "id": null,
+            "keys": "ctrl+v"
+        },
+        {
+            "id": null,
+            "keys": "enter"
+        },
+        {
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+c"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+insert"
+        },
+        {
+            "id": null,
+            "keys": "shift+insert"
+        },
+        {
+            "id": null,
+            "keys": "f11"
+        },
+        {
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
+        }
+    ],
     "newTabMenu": 
     [
         {
@@ -76,9 +85,9 @@
                 "face": "Cascadia Code",
                 "size": 10
             },
-            "opacity": 85,
+            "opacity": 100,
             "padding": "4, 4, 4, 4",
-            "suppressApplicationTitle": true,
+            "suppressApplicationTitle": false,
             "useAcrylic": false
         },
         "list": 
@@ -106,6 +115,12 @@
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Cmd"
+            },
+            {
+                "guid": "{dd40b1fc-5134-528c-a0f3-b044c06e2ae5}",
+                "hidden": false,
+                "name": "workspace",
+                "source": "Microsoft.WSL"
             }
         ]
     },

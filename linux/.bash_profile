@@ -123,12 +123,6 @@ if [ $? -ne 0 ]; then
     (setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"$npiperelaypath/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &) >/dev/null 2>&1
 fi
 
-# Create SSH tunnels to ESXi servers and office router
-if ! ps aux | grep -Pq 'ssh.+127.0.0.1:\d{1}44(3|4)' && \
-        tailscale ping ${SSH_PROXY_HOST} >/dev/null 2>&1; then
-    tunup &
-fi
-
 # Start tmux
 if [ -z $TMUX ]; then
     tmux

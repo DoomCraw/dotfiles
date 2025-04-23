@@ -120,7 +120,6 @@ autocmd VimEnter * call AirLineInit()
 " END: AirLine
 
 " COC Ansible
-" :CocInstall @yaegassy/coc-ansible
 let g:coc_filetype_map = {
     \ 'yaml.ansible': 'ansible',
   \ }
