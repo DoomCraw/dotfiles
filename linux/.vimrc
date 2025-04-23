@@ -65,18 +65,27 @@ autocmd VIMEnter * ++nested colorscheme everforest
 
 " ===============================       KEYMAP       =========================================
 " tabs
-map <leader>tn :tabnew<cr>
+map TN :tabnew<cr>
+map TC :tabclose<cr>
+map TE :tabedit
 map <leader>t<leader> :tabnext
 map <leader>tm :tabmove
-map <leader>tc :tabclose<cr>
 map <leader>to :tabonly<cr>
-map <leader>te :tabedit
+nnoremap H gT
+nnoremap L gt
 " exit
 map ZA :qall!<cr>
 map ZX :q!<cr>
 " NERDTree
 map <F5> :NERDTreeToggle<CR>
-" END: Keymap
+" Vim terminal
+" terminal in split window
+map <leader>t :term ++close<cr>
+tmap <leader>t <c-w>:term ++close<cr>
+
+" terminal in new tab
+map <leader>T :tab term ++close<cr>
+tmap <leader>T <c-w>:tab term ++close<cr>
 
 " ===============================       FILETYPES       ======================================
 au FileType yml,yaml setlocal ts=2 sts=2 sw=2 indentkeys-=0# " indentkeys-=<:>

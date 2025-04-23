@@ -98,7 +98,7 @@ alias '....'='cd ../../..'
 
 # EXPORT ENVIRONMENT VARS
 
-export ANSIBLE_VENV_PATH=~/.ansible_venv
+export ANSIBLE_VENV_PATH=~/.ansible-venv
 export SSH_AUTH_SOCK=~/.ssh/agent.socket
 export SSH_PROXY=valeriy.z@100.64.0.18
 export PATH=${PATH}:${ANSIBLE_VENV_PATH}/bin
