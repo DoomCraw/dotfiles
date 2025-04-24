@@ -77,6 +77,10 @@ _up_ssh_tunnels () {
     unset ssh_proxy_cmd
 }
 
+fnmap () { 
+    nmap -p- -sC -sV -A --min-rate=400 --min-parallelism=512 -vv $1
+}
+
 # ALIASES
 
 alias getpasswd='tr -dc "A-Za-z0-9@!#%^$&*()-_=+" < /dev/urandom | fold -w ${PASSLEN:-16} | head -1'
