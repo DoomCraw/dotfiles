@@ -37,5 +37,7 @@ bindings = [
     { key = "P",  mods = "Shift|Control", command = { program = "alacritty.exe", args = ["-T", "PowerShell", "-e", "powershell -NoLogo -NoExit -Command cd ${env:USERPROFILE}"] } },
     { key = "S",  mods = "Shift|Control", command = { program = "alacritty.exe", args = ["-o", "window.startup_mode='Windowed'", "-o", "window.position.x=960", "-o", "window.position.y=0", "-o", "window.dimensions.columns=79", "-o", "window.dimensions.lines=37", "-T", "PowerShell: Side", "-e", "powershell -NoLogo -NoExit -Command cd ${env:USERPROFILE}"] } },
     { key = "J",  mods = "Control", chars = "\r" },
-    { key = "E",  mods = "Shift|Control", action = "Quit" }
+    { key = "E",  mods = "Shift|Control", action = "Quit" },
+    { key = "C",  mods = "Shift|Control", action = "Copy" },
+    { key = "V",  mods = "Shift|Control", action = "Paste" }
 ]
