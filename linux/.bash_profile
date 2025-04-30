@@ -77,7 +77,7 @@ _up_ssh_tunnels () {
     unset ssh_proxy_cmd
 }
 
-fnmap () { 
+fnmap () {
     nmap -p- -sC -sV -A --min-rate=400 --min-parallelism=512 -vv $1
 }
 
