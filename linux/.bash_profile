@@ -70,14 +70,16 @@ _up_ssh_tunnels () {
                              -nfCNT"
 
     ${ssh_proxy_cmd} -L 127.0.0.1:4444:10.18.42.1:4444 ${SSH_PROXY}
-    ${ssh_proxy_cmd} -L 127.0.0.1:5443:10.18.42.29:443 ${SSH_PROXY}
     ${ssh_proxy_cmd} -L 127.0.0.1:1443:10.18.42.43:443 ${SSH_PROXY}
     ${ssh_proxy_cmd} -L 127.0.0.1:2443:10.18.42.44:443 ${SSH_PROXY}
+    ${ssh_proxy_cmd} -L 127.0.0.1:3443:10.18.42.45:8006 ${SSH_PROXY}
+    ${ssh_proxy_cmd} -L 127.0.0.1:4443:10.18.42.46:8006 ${SSH_PROXY}
+    ${ssh_proxy_cmd} -L 127.0.0.1:5443:10.18.42.29:443 ${SSH_PROXY}
  
     unset ssh_proxy_cmd
 }
 
-fnmap () {
+fnmap () { 
     nmap -p- -sC -sV -A --min-rate=400 --min-parallelism=512 -vv $1
 }
 
