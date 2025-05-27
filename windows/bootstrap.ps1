@@ -1,11 +1,20 @@
+$PROFILE_PATH=(Split-Path $PROFILE -Parent)
+$APPDATA_DIR_PATH=(Split-Path $env:APPDATA -Parent)
+
 Push-Location $PSScriptRoot
-# Copy-Item -Force -Path .\functions.ps1 -Destination (Split-Path $PROFILE -Parent)
-# Copy-Item -Force -Path .\aliases.ps1 -Destination (Split-Path $PROFILE -Parent)
-Copy-Item -Force -Path .\profile.ps1 -Destination (Split-Path $PROFILE -Parent)
+
+if (!(Test-Path $PROFILE_PATH -ErroAction SilentlyContinue)) {
+    New-Item -Force -ItemType Directory -Path "${PROFILE_PATH}"
+}
+
+Copy-Item -Force -Exclude "bootstrap.ps1" -Path ".\*.ps1" -Destination "${PROFILE_PATH}"
+
+Copy-Item -Recurse -Force -Path ".\AppData\*" -Destination "${APPDATA_DIR_PATH}"
+
 @'
-. $(Split-Path $PROFILE -Parent)\profile.ps1
+. ${PROFILE_PATH}\profile.ps1
 '@ | Out-File -Force -NoNewline -Encoding ascii -FilePath $PROFILE
-# Copy-Item -Force -Path .wezterm.lua -Destination $HOME
-# Copy-Item -Recurse -Force -Path .neovim -Destination $HOME
-Copy-Item -Recurse -Force -Path .\AppData -Destination (Split-Path $env:APPDATA -Parent)
+
 Pop-Location
+
+Exit 0
