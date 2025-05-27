@@ -62,21 +62,27 @@ _down_ssh_tunnels () {
 }
 
 _up_ssh_tunnels () {
+    create_ssh_local_tunel 4444 10.18.42.1:4444
+    create_ssh_local_tunel 1443:10.18.42.43:443
+    create_ssh_local_tunel 2443:10.18.42.44:443
+    create_ssh_local_tunel 3443:10.18.42.45:8006
+    create_ssh_local_tunel 4443:10.18.42.46:8006
+    create_ssh_local_tunel 5443:10.18.42.29:443
+}
+
+create_ssh_local_tunel () {
+    local local_port=${1}
+    local remote_addr_port=${2}
+    local proxy_server=${3:-${SSH_PROXY}}
     local ssh_proxy_cmd="ssh -o StrictHostKeyChecking=no \
                              -o ControlMaster=no \
                              -o ServerAliveInterval=60 \
                              -o ExitOnForwardFailure=yes \
-                             -p 22 \
                              -nfCNT"
 
-    ${ssh_proxy_cmd} -L 127.0.0.1:4444:10.18.42.1:4444 ${SSH_PROXY}
-    ${ssh_proxy_cmd} -L 127.0.0.1:1443:10.18.42.43:443 ${SSH_PROXY}
-    ${ssh_proxy_cmd} -L 127.0.0.1:2443:10.18.42.44:443 ${SSH_PROXY}
-    ${ssh_proxy_cmd} -L 127.0.0.1:3443:10.18.42.45:8006 ${SSH_PROXY}
-    ${ssh_proxy_cmd} -L 127.0.0.1:4443:10.18.42.46:8006 ${SSH_PROXY}
-    ${ssh_proxy_cmd} -L 127.0.0.1:5443:10.18.42.29:443 ${SSH_PROXY}
- 
-    unset ssh_proxy_cmd
+    ${ssh_proxy_cmd} -L 127.0.0.1:${local_port}:${remote_addr_port} ${proxy_server}
+    
+    unset local_port remote_addr_port proxy_server ssh_proxy_cmd
 }
 
 fnmap () { 
@@ -93,9 +99,11 @@ alias nc='nc -vzw3 $@'
 alias tun='_list_ssh_tunnels'
 alias tundown='_down_ssh_tunnels'
 alias tunup='_up_ssh_tunnels'
+alias ssh_local_forward='create_ssh_local_tunel $@'
 alias kl='ssh-add -L | cut -d" " -f3'
 alias tmux='tmux attach -t 0 || tmux'
 alias ssh='ssh -o StrictHostKeyChecking=no'
+alias ls='ls --color=always'
 alias s='ls -l'
 alias cls='clear'
 alias '..'='cd ..'
@@ -117,7 +125,7 @@ export PROMPT_COMMAND="echo"
 
 cd ~
 
-eval $(dircolors ~/.dircolors)
+[ ! -f ~/.dircolors ] && eval $(dircolors ~/.dircolors)
 
 # Initialize ssh-agent with keys
 # init_ssh_agent
@@ -127,6 +135,7 @@ if [ $? -ne 0 ]; then
     rm -f $SSH_AUTH_SOCK
     npiperelaypath=$(wslpath "C:/npiperelay")
     (setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"$npiperelaypath/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &) >/dev/null 2>&1
+    chmod 600 $SSH_AUTH_SOCK
 fi
 
 # Start tmux
