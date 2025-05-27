@@ -8,6 +8,8 @@ linux/.vim/*
 .vscode
 linux/.ssh/*
 !linux/.ssh/config
+!linux/.ssh/id_rsa.pub
+!linux/.ssh/ansible.rsa.pub
 linux/.ssh/controlmasters/*
 !linux/.ssh/controlmasters/
 !linux/.ssh/controlmasters/.gitkeep
