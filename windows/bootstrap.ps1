@@ -1,5 +1,5 @@
 $PROFILE_PATH=(Split-Path $PROFILE -Parent)
-$APPDATA_DIR_PATH=(Split-Path $env:APPDATA -Parent)
+$APPDATA_DIR_PATH=(Split-Path $Env:APPDATA -Parent)
 
 Push-Location $PSScriptRoot
 

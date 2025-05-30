@@ -39,7 +39,7 @@ ${function:....} = { cd ../../.. }
 ${function:.....} = { cd ../../../.. }
 
 ## Add functions
-function Renew-NetworkSettings {
+function Reset-NetworkSettings {
     $ipconfigPath=(Get-Command -Name ipconfig.exe).Path
     Start-Process -FilePath $ipconfigPath -ArgumentList '/renew' -NoNewWindow -Wait
     Start-Sleep -Millisecond 100
@@ -48,12 +48,14 @@ function Renew-NetworkSettings {
 
 function Reload-Wsl {
     Stop-Process -Name pritunl -Force -ErrorAction SilentlyContinue
+    Stop-Process -Name tailscale-ipn -Force -ErrorAction SilentlyContinue
     Stop-Service -Name pritunl -Force
+    Stop-Service -Name tailscale -Force
     Start-Sleep -Millisecond 100
     & wsl --shutdown
     Stop-Service -Name WSLService -Force
     Start-Sleep -Millisecond 100
-    Renew-NetworkSettings
+    Reset-NetworkSettings
     Start-Sleep -Millisecond 100
     Start-Service -Name WSLService
     Start-Sleep -Millisecond 100
