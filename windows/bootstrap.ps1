@@ -12,7 +12,7 @@ Copy-Item -Force -Exclude "bootstrap.ps1" -Path ".\*.ps1" -Destination "${PROFIL
 Copy-Item -Recurse -Force -Path ".\AppData\*" -Destination "${APPDATA_DIR_PATH}"
 
 @'
-. ${PROFILE_PATH}\profile.ps1
+. $(Split-Path $PROFILE -Parent)\profile.ps1
 '@ | Out-File -Force -NoNewline -Encoding ascii -FilePath $PROFILE
 
 Pop-Location
