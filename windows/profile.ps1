@@ -11,6 +11,7 @@ $env:Path = @(
     'C:\Program Files\Git\bin',
     'C:\java\jdk-21.0.2\bin\',
     'C:\Program Files\Notepad++',
+    'C:\Program Files\Neovim\bin',
     'C:\Program Files\Tailscale\',
     'C:\Program Files\Graphviz\bin',
     'C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\',
