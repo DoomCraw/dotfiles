@@ -115,11 +115,19 @@ alias '....'='cd ../../..'
 export ANSIBLE_VENV_PATH=~/.ansible-venv
 export SSH_AUTH_SOCK=~/.ssh/agent.socket
 export SSH_PROXY=valeriy.z@100.64.0.18
+# export SSH_PROXY=ubuntu@100.64.0.12
 export PATH=${PATH}:${ANSIBLE_VENV_PATH}/bin
 export EDITOR=vim
 export TERM='xterm-256color'
 export PS1="\[\e[36m\]\w\[\e[m\]\[\e[32m\]\[\e[m\]\[\e[32;98m\]\nλ\[\e[m\] "
 export PROMPT_COMMAND="echo"
+
+# COMPLETIONS
+
+# AWSCLI v2
+if [[ -n $(command -v aws) ]] && [[ -n $(command -v aws_completer) ]]; then
+    complete -C $(which aws_completer) aws
+fi
 
 # MAIN
 
