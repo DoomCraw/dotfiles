@@ -89,6 +89,15 @@ fnmap () {
     nmap -p- -sC -sV -A --min-rate=400 --min-parallelism=512 -vv $1
 }
 
+aws_config () {
+    read -s -p 'AWS_ACCESS_KEY_ID: ' AWS_ACCESS_KEY_ID
+    echo -e
+    read -s -p 'AWS_SECRET_ACCESS_KEY: ' AWS_SECRET_ACCESS_KEY
+    export AWS_ACCESS_KEY_ID
+    export AWS_SECRET_ACCESS_KEY
+    export AWS_DEFAULT_REGION=me-south-1
+}
+
 # ALIASES
 
 alias getpasswd='tr -dc "A-Za-z0-9@!#%^$&*()-_=+" < /dev/urandom | fold -w ${PASSLEN:-16} | head -1'
