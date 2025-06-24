@@ -65,8 +65,8 @@ _up_ssh_tunnels () {
     create_ssh_local_tunel 4444 10.18.42.1:4444
     create_ssh_local_tunel 1443:10.18.42.43:443
     create_ssh_local_tunel 2443:10.18.42.44:443
-    create_ssh_local_tunel 3443:10.18.42.45:8006
-    create_ssh_local_tunel 4443:10.18.42.46:8006
+    create_ssh_local_tunel 3443:10.18.42.13:8006
+    create_ssh_local_tunel 4443:10.18.42.14:8006
     create_ssh_local_tunel 5443:10.18.42.29:443
 }
 
