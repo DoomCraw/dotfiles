@@ -1,0 +1,16 @@
+[battery]
+format = '[$symbol$percentage]($style) '
+full_symbol = '🔋'
+charging_symbol = '🔌'
+discharging_symbol = '💀'
+
+[[battery.display]]
+threshold = 100
+style = 'bold green'
+
+[directory]
+format = '[$path]($style)[$read_only]($read_only_style) '
+style = 'bold yellow'
+read_only = '🔒'
+read_only_style = 'red'
+disabled = false

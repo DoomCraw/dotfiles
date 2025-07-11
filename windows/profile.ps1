@@ -24,6 +24,8 @@ $env:Path = @(
     (gci 'C:\Program Files\Git\' -Filter grep.exe -File -Recurse).DirectoryName
 ) -join ';'
 
+$Env:STARSHIP_CONFIG = "${Env:USERPROFILE}\.starship\starship.toml"
+
 ## Aliases
 if (Test-Path Alias:\ls) { rm Alias:\ls }
 if (Test-Path Alias:\curl) { rm Alias:\curl }
@@ -39,6 +41,14 @@ ${function:\..} = { cd .. }
 ${function:...} = { cd ../.. }
 ${function:....} = { cd ../../.. }
 ${function:.....} = { cd ../../../.. }
+
+function vim {
+    if (Get-Command nvim.exe -ErrorAction SilentlyContinue) {
+        & nvim.exe @args
+    } else {
+        & vim.exe @args
+    }
+}
 
 ## Add functions
 function Reset-NetworkSettings {
@@ -182,6 +192,5 @@ if ($?) {
 if ((gci 'C:\Program Files\' -Filter starship.exe -File -Recurse).Count -eq 0) { & winget.exe install -s winget --id Starship.Starship }
 
 Invoke-Expression (& (gci 'C:\Program Files\' -Filter starship.exe -File -Recurse).FullName init powershell)
-Set-Location D:\yandex_disk\projects\os_unattend_instrall\win2016
 # Modules
 # Install-Module pswindowsupdate
