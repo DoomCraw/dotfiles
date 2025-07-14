@@ -104,6 +104,11 @@ function Start-SSHTunnels {
     Get-Process -Name ssh -ErrorAction SilentlyContinue
 }
 
+function Set-AWSEnvironment {
+    $Env:AWS_ACCESS_KEY_ID=(Read-Host -Prompt 'AWS_ACCESS_KEY_ID')
+    $Env:AWS_SECRET_ACCESS_KEY=(Read-Host -Prompt 'AWS_SECRET_ACCESS_KEY')
+}
+
 ## Map PSDrives to other registry hives
 if (!(Test-Path HKCR:)) {
     $null = New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
