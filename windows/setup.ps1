@@ -7,6 +7,8 @@ winget install -s winget -e --id Neovim.Neovim
 winget install -s winget -e --id qBittorrent.qBittorrent
 winget install -e -s winget --id Microsoft.VisualStudioCode
 
+# Terraform
+
 # Registry parameters
 Set-Registry
 
