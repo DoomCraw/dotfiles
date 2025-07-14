@@ -29,6 +29,7 @@ $Env:STARSHIP_CONFIG = "${Env:USERPROFILE}\.starship\starship.toml"
 ## Aliases
 if (Test-Path Alias:\ls) { rm Alias:\ls }
 if (Test-Path Alias:\curl) { rm Alias:\curl }
+if (Test-Path Alias:\kill) { rm Alias:\kill }
 
 ${function:grep}  = { & grep.exe --color @args }
 ${function:curl}  = { & curl.exe --ssl-no-revoke @args }
@@ -48,6 +49,10 @@ function vim {
     } else {
         & vim.exe @args
     }
+}
+
+function kill ([string]$proc) {
+    Get-Process $proc | Stop-Process -Force -ErrorAction SilentlyContinue
 }
 
 ## Add functions
@@ -197,5 +202,7 @@ if ($?) {
 if ((gci 'C:\Program Files\' -Filter starship.exe -File -Recurse).Count -eq 0) { & winget.exe install -s winget --id Starship.Starship }
 
 Invoke-Expression (& (gci 'C:\Program Files\' -Filter starship.exe -File -Recurse).FullName init powershell)
+# Set-Location D:\yandex_disk\projects\os_unattend_instrall\win2016
+Set-Location D:\git\personal\dotfiles\windows
 # Modules
 # Install-Module pswindowsupdate
