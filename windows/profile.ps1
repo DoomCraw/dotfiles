@@ -202,7 +202,5 @@ if ($?) {
 if ((gci 'C:\Program Files\' -Filter starship.exe -File -Recurse).Count -eq 0) { & winget.exe install -s winget --id Starship.Starship }
 
 Invoke-Expression (& (gci 'C:\Program Files\' -Filter starship.exe -File -Recurse).FullName init powershell)
-# Set-Location D:\yandex_disk\projects\os_unattend_instrall\win2016
-Set-Location D:\git\personal\dotfiles\windows
 # Modules
 # Install-Module pswindowsupdate
