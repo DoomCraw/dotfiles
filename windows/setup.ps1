@@ -3,9 +3,11 @@ winget install -s winget -e --id Alacritty.Alacritty
 winget install -s winget -e --id Notepad++.Notepad++
 winget install -s winget -e --id 7zip.7zip
 winget install -s winget -e --id Zig.Zig
+winget install -s winget -e --id Git.Git
 winget install -s winget -e --id Neovim.Neovim
 winget install -s winget -e --id qBittorrent.qBittorrent
 winget install -e -s winget --id Microsoft.VisualStudioCode
+winget install -e -s winget --id wez.wezterm
 
 # Terraform
 
