@@ -3,6 +3,8 @@
     'Alacritty.Alacritty',
     'Git.Git',
     'Microsoft.VisualStudioCode',
+    'Tailscale.Tailscale',
+    'Pritunl.PritunlClient',
     'Neovim.Neovim',
     'Notepad++.Notepad++',
     'qBittorrent.qBittorrent',
