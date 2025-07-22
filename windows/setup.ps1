@@ -21,7 +21,7 @@ ForEach-Object {
 
 # Bootstrap dotfiles
 git clone https://github.com/DoomCraw/dotfiles.git "${HOME}\.dotfiles"
-. "${HOME}\.dotfiles\bootstrap.ps1"
-. "${HOME}\.dotfiles\wsl\setup.ps1"
+. "${HOME}\.dotfiles\windows\bootstrap.ps1"
+. "${HOME}\.dotfiles\windows\wsl\setup.ps1"
 
 Exit 0
