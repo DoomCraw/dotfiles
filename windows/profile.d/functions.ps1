@@ -1,3 +1,4 @@
+# TODO: Merge with job profile functions
 function Reset-NetworkSettings {
     $ipconfigPath=(Get-Command -Name ipconfig.exe).Path
     Start-Process -FilePath $ipconfigPath -ArgumentList '/renew' -NoNewWindow -Wait

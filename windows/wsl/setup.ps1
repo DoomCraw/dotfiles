@@ -4,4 +4,6 @@ if ((& wsl.exe --status).length -eq 0) {
     Exit 0
 }
 
+# TODO: Distro install steps
+
 Exit 0
