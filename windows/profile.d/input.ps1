@@ -1,0 +1,13 @@
+Set-PSReadLineKeyHandler -Chord 'Ctrl+f' -Function ForwardChar
+Set-PSReadLineKeyHandler -Chord 'Ctrl+b' -Function BackwardChar
+Set-PSReadLineKeyHandler -Chord 'Alt+f' -Function ForwardWord
+Set-PSReadLineKeyHandler -Chord 'Alt+b' -Function BackwardWord
+Set-PSReadLineKeyHandler -Chord 'Ctrl+a' -Function BeginningOfLine
+Set-PSReadLineKeyHandler -Chord 'Ctrl+e' -Function EndOfLine
+Set-PSReadLineKeyHandler -Chord 'Enter' -Function ValidateAndAcceptLine
+Set-PSReadLineKeyHandler -Chord 'Ctrl+j' -Function ValidateAndAcceptLine
+Set-PSReadLineKeyHandler -Chord 'Ctrl+m' -Function ValidateAndAcceptLine
+Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteCharOrExit
+Set-PSReadLineKeyHandler -Chord 'Alt+Backspace' -Function BackwardKillWord
+Set-PSReadLineKeyHandler -Chord 'Ctrl+p' -Function PreviousHistory
+Set-PSReadLineKeyHandler -Chord 'Ctrl+n' -Function NextHistory
