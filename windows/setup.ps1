@@ -1,18 +1,19 @@
 # Install dependencies
 @(
+    '7zip.7zip',
     'Alacritty.Alacritty',
     'Git.Git',
+    'Google.Chrome',
+    'Hashicorp.Terraform',
     'Microsoft.VisualStudioCode',
-    'Tailscale.Tailscale',
-    'Pritunl.PritunlClient',
     'Neovim.Neovim',
     'Notepad++.Notepad++',
-    'qBittorrent.qBittorrent',
+    'Pritunl.PritunlClient',
     'Starship.Starship',
-    'wez.wezterm',
+    'Tailscale.Tailscale',
     'Zig.Zig',
-    'Hashicorp.Terraform',
-    '7zip.7zip'
+    'qBittorrent.qBittorrent',
+    'wez.wezterm'
 ) | 
 ForEach-Object {
     winget install -e -s winget --id $PSItem
