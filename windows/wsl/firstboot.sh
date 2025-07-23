@@ -2,7 +2,7 @@
 
 set -eu
 
-WSLUSER=${$1:-"wsluser"}
+WSLUSER=${1:-"wsluser"}
 
 apt update -y && \
     apt dist-upgrade -y
