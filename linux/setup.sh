@@ -2,4 +2,4 @@
 
 set -eu
 
-apt install vim make openjdk-17-jre
+apt install -y vim make openjdk-17-jre
