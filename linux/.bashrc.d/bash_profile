@@ -70,6 +70,10 @@ _up_ssh_tunnels () {
     create_ssh_local_tunel 5443:10.18.42.29:443
 }
 
+sshpr () {
+    ssh -J $SSH_PROXY $@
+}
+
 create_ssh_local_tunel () {
     local local_port=${1}
     local remote_addr_port=${2}
@@ -93,8 +97,8 @@ aws_config () {
     read -s -p 'AWS_ACCESS_KEY_ID: ' AWS_ACCESS_KEY_ID
     echo -e
     read -s -p 'AWS_SECRET_ACCESS_KEY: ' AWS_SECRET_ACCESS_KEY
-    export AWS_ACCESS_KEY_ID
-    export AWS_SECRET_ACCESS_KEY
+    export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     export AWS_DEFAULT_REGION=me-south-1
 }
 
@@ -118,6 +122,8 @@ alias cls='clear'
 alias '..'='cd ..'
 alias '...'='cd ../..'
 alias '....'='cd ../../..'
+alias sshrhel84='ssh -J $SSH_PROXY  -o PreferredAuthentications=password -o PasswordAuthentication=yes root@10.18.42.165'
+alias sshrhel810='ssh -J $SSH_PROXY  -o PreferredAuthentications=password -o PasswordAuthentication=yes root@10.18.42.225'
 
 # EXPORT ENVIRONMENT VARS
 
@@ -147,6 +153,9 @@ cd ~
 # Initialize ssh-agent with keys
 # init_ssh_agent
 # Using npiperelay for WSL to proxy ssh-agent keys from Windows host machine
+# if env | grep -Piq 'wsl[\w\d_]+'; then
+#     echo -e 1;
+# fi
 ss -a | grep -q $SSH_AUTH_SOCK
 if [ $? -ne 0 ]; then
     rm -f $SSH_AUTH_SOCK
