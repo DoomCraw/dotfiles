@@ -61,7 +61,7 @@ if has('termguicolors')
   set termguicolors
 endif
 
-autocmd VIMEnter * ++nested colorscheme everforest
+autocmd VIMEnter * ++nested colorscheme iceberg
 
 " ===============================       KEYMAP       =========================================
 " tabs
