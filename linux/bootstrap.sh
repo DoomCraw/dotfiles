@@ -65,6 +65,9 @@ popd
 dotfiles_sync
 ssh_perms
 
+test -d ~/.tmux/plugins/tpm || \
+	git clone -q https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 dircolors --print-database > ~/.dircolors
 
 unset DOTFILES_ROOT ANSIBLE_VENV_NAME ANSIBLE_VENV_PIP_REQUIREMENTS ANSIBLE_VENV_GALAXY_REQUIREMENTS
