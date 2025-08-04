@@ -1,0 +1,4 @@
+# AWSCLI v2
+if [[ -n $(command -v aws) ]] && [[ -n $(command -v aws_completer) ]]; then
+    complete -C $(which aws_completer) aws
+fi

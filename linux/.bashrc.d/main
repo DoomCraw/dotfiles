@@ -1,0 +1,23 @@
+bashrc_files=(
+functions
+aliases
+exports
+completion
+prompt
+ansible
+virtualbox
+ssh-agent
+exec
+)
+
+pushd $(dirname ${BASH_SOURCE}) > /dev/null
+
+for rc in ${bashrc_files[@]}; do
+    if [ -r ./$rc ]; then
+        source ./${rc}
+    fi
+done
+
+popd
+
+unset bashrc_files rc

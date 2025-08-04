@@ -1,0 +1,37 @@
+init_ssh_agent () {
+    if [ -f ~/.agent.env ]; then
+        . ~/.agent.env > /dev/null
+        if ! kill -0 $SSH_AGENT_PID > /dev/null 2>&1; then
+            echo "Stale agent file found. Spawning new agent… "
+            eval $(ssh-agent | tee ~/.agent.env)
+        fi 
+    else
+        echo "Starting ssh-agent"
+        eval $(ssh-agent | tee ~/.agent.env)
+    fi
+
+    if ! ssh-add -L > /dev/null && [ $# -ne 0 ]; then
+        for privkey in $@; do
+            if [ -r "${privkey}" ]; then
+                ssh-add -t ${SSH_KEYS_TTL:-605000} ${privkey}
+            fi
+        done
+    fi
+}
+
+# Using npiperelay for WSL to proxy ssh-agent keys from Windows host machine
+if [ -n "${WSL_DISTRO_NAME}" ]; then
+    ss -a | grep -q $SSH_AUTH_SOCK
+    if [ $? -ne 0 ]; then
+        rm -f $SSH_AUTH_SOCK
+        npiperelaypath=$(wslpath "C:/npiperelay")
+        (setsid socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"$npiperelaypath/npiperelay.exe -ei -s //./pipe/openssh-ssh-agent",nofork &) >/dev/null 2>&1
+        chmod 600 $SSH_AUTH_SOCK
+    fi
+else
+    if [ -n "${SSH_KEYS}" ]; then
+        init_ssh_agent "${SSH_KEYS}"
+    else
+        init_ssh_agent
+    fi
+fi

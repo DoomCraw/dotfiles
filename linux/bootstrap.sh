@@ -2,75 +2,79 @@
 
 set -eu
 
-DOTFILES_ROOT=$(cd $(dirname $0); echo $(pwd))
-ANSIBLE_VENV_NAME=.ansible-venv
-ANSIBLE_VENV_PIP_REQUIREMENTS=${DOTFILES_ROOT}/${ANSIBLE_VENV_NAME}/requirements.txt
-ANSIBLE_VENV_GALAXY_REQUIREMENTS=${DOTFILES_ROOT}/${ANSIBLE_VENV_NAME}/requirements.yml
+pushd $(dirname ${BASH_SOURCE})
+git pull origin main
 
-dotfiles_sync () {
-	pushd ${DOTFILES_ROOT}
-	git pull origin main
-	rsync --exclude ".git/" \
-		  --exclude "${ANSIBLE_VENV_NAME}/" \
+do_sync () {
+	rsync --exclude ".git" \
 		  --exclude ".gitignore" \
+		  --exclude "deps" \
 		  --exclude "bootstrap.sh" \
+		  --exclude "setup.sh" \
 		  --exclude "README.md" \
 		  --exclude "LICENSE" \
 		  -avh \
 		  --no-perms . ~
-	popd
 }
 
-ssh_perms () {
+set_ssh_perms () {
 	chown ${USER}:${USER} -R ~/.ssh
 	chmod 0700 -R ~/.ssh
 	chmod 600 ~/.ssh/*
 }
 
+do_sync
+set_ssh_perms
+
 pushd ~
 
-python3 -m venv ${ANSIBLE_VENV_NAME}
-source ${ANSIBLE_VENV_NAME}/bin/activate
-pip install pip --upgrade
-pip install -r ${ANSIBLE_VENV_PIP_REQUIREMENTS}
-ansible-galaxy install -r ${ANSIBLE_VENV_GALAXY_REQUIREMENTS}
-deactivate
+if [ ! -d .vim/autoload -a ! -d .vim/bundle ]; then
+	mkdir -p .vim/{autoload,bundle}
+	curl -fsSL https://tpo.pe/pathogen.vim -o .vim/autoload/pathogen.vim
 
-mkdir -p .vim/{autoload,bundle}
-curl -fsSL https://tpo.pe/pathogen.vim -o .vim/autoload/pathogen.vim
+	plugins=(
+	"https://github.com/vim-airline/vim-airline-themes vim-airline-themes"
+	"https://github.com/vim-airline/vim-airline vim-airline"
+	"https://github.com/sheerun/vim-polyglot vim-polyglot"
+	"https://github.com/sainnhe/everforest.git everforest"
+	"https://github.com/morhetz/gruvbox.git gruvbox"
+	"https://github.com/cocopon/iceberg.vim.git iceberg"
+	"https://github.com/preservim/nerdtree.git nerdtree"
+	"https://github.com/pearofducks/ansible-vim ansible-vim"
+	"https://github.com/neoclide/coc.nvim coc.nvim"
+	"https://github.com/martinda/Jenkinsfile-vim-syntax.git Jenkinsfile-vim-syntax"
+	"https://github.com/dense-analysis/ale ale"
+	)
 
-export plugins=(
-"https://github.com/vim-airline/vim-airline-themes vim-airline-themes"
-"https://github.com/vim-airline/vim-airline vim-airline"
-"https://github.com/sheerun/vim-polyglot vim-polyglot"
-"https://github.com/sainnhe/everforest.git everforest"
-"https://github.com/morhetz/gruvbox.git gruvbox"
-"https://github.com/cocopon/iceberg.vim.git iceberg"
-"https://github.com/preservim/nerdtree.git nerdtree"
-"https://github.com/pearofducks/ansible-vim ansible-vim"
-"https://github.com/neoclide/coc.nvim coc.nvim"
-"https://github.com/martinda/Jenkinsfile-vim-syntax.git Jenkinsfile-vim-syntax"
-"https://github.com/dense-analysis/ale ale"
-)
-pushd .vim/bundle
-for plugin in "${plugins[@]}"; do
-    git clone -q $plugin
-done
-popd
+	pushd .vim/bundle
 
-pushd .vim/bundle/coc.nvim
-npm ci
-popd
+	IFS=""
+	for plugin in "${plugins[@]}"; do
+	    git clone -q $plugin
+	done
 
-dotfiles_sync
-ssh_perms
+	popd
 
-test -d ~/.tmux/plugins/tpm || \
+	pushd .vim/bundle/coc.nvim
+	npm ci
+	popd
+fi
+
+if [ ! -d ~/.tmux/plugins/tpm ]; then
 	git clone -q https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
 
-dircolors --print-database > ~/.dircolors
+if [ ! -f ~/.dircolors ]; then
+	dircolors --print-database > ~/.dircolors
+fi
 
-unset DOTFILES_ROOT ANSIBLE_VENV_NAME ANSIBLE_VENV_PIP_REQUIREMENTS ANSIBLE_VENV_GALAXY_REQUIREMENTS
-unset dotfiles_sync ssh_perms plugins
+popd
+
+grep -wq 'source ~/.bashrc.d/main' ~/.bashrc || \
+	echo -e '\nsource ~/.bashrc.d/main' >> ~/.bashrc
+
+source ~/.bashrc.d/main
+
+unset do_sync set_ssh_perms plugins plugin
 
 exit 0

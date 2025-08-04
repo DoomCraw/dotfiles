@@ -1,0 +1,25 @@
+_ansible_add_new_role () {
+    local role_name=${1:-new_role}
+
+    if [ -d ./roles/${role_name} ]; then
+      echo 'Role already exists' # TODO change to "error" function
+      exit 1
+    fi
+  
+    mkdir -p ./roles/${role_name}
+
+    for folder in tasks handlers files templates defaults vars meta; do
+        mkdir -p ./roles/${role_name}/${folder}
+        case "${folder}" in
+            tasks|handlers|defaults|meta) echo -e "---\n" >> ./roles/${role_name}/${folder}/main.yaml ;;
+        esac
+    done
+
+    unset role_name
+}
+
+_ansible_playbook () {
+    source $ANSIBLE_VENV_PATH/bin/activate
+    ansible-playbook $@
+    deactivate
+}

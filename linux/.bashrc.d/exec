@@ -1,0 +1,10 @@
+# HOME
+cd ~
+
+# DIRCOLORS
+[ ! -f ~/.dircolors ] && eval $(dircolors ~/.dircolors)
+
+# Start tmux
+if [ -z $TMUX ]; then
+    tmux
+fi
