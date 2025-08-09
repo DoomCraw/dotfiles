@@ -84,4 +84,6 @@ function Start-SSHTunnels {
 function Set-AWSEnvironment {
     $Env:AWS_ACCESS_KEY_ID=(Read-Host -Prompt 'AWS_ACCESS_KEY_ID')
     $Env:AWS_SECRET_ACCESS_KEY=(Read-Host -Prompt 'AWS_SECRET_ACCESS_KEY')
+    $Env:AWS_DEFAULT_REGION="me-south-1"
+    $Env:AWS_REGION="me-south-1"
 }
