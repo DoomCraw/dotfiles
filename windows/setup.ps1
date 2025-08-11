@@ -2,6 +2,7 @@
 @(
     '7zip.7zip',
     'Alacritty.Alacritty',
+    'Discord.Discord',
     'Git.Git',
     'Google.Chrome',
     'Hashicorp.Terraform',
@@ -10,20 +11,50 @@
     'Notepad++.Notepad++',
     'Pritunl.PritunlClient',
     'Starship.Starship',
+    'SlackTechnologies.Slack',
     'Tailscale.Tailscale',
+    'Telegram.TelegramDesktop',
     'Zig.Zig',
     'qBittorrent.qBittorrent',
     'wez.wezterm'
-) | 
+) |
 ForEach-Object {
-    winget install -e -s winget --id $PSItem
+    winget install --silent --accept-package-agreements --accept-source-agreements -e -s winget --id $PSItem
 }
 
 # Bootstrap dotfiles
 git clone https://github.com/DoomCraw/dotfiles.git "${HOME}\.dotfiles"
-. "${HOME}\.dotfiles\windows\bootstrap.ps1"
-. "${HOME}\.dotfiles\windows\wsl\setup.ps1"
+$dotfilesDir="${HOME}\.dotfiles\windows" 
+$profilePath = (Split-Path $PROFILE -Parent)
+if (!(Test-Path $profilePath)) {
+  New-Item $profilePath -ItemType Directory -Force
+  Copy-Item -Path ${dotfilesDir}\profile\* -Destination $profilePath -Include ** -Recurse -Force
+  Copy-Item -Path ${dotfilesDir} -Destination $HOME -Include ** -Exclude setup.ps1,profile -Recurse -Force
+}
 
-# TODO: Registry, services, etc.
+. "${dotfilesDir}\bootstrap.ps1"
+. "${dotfilesDir}\wsl\setup.ps1"
+
+# ############ ( ----------------     Registry    ----------------) ############
+
+
+if ($Registry -or $All) {
+  . "${dotfilesDir}\setup\registry.ps1"
+}
+
+# ############ ( ----------------     Services    ----------------) ############
+
+
+if ($Registry -or $All) {
+  . "${dotfilesDir}\setup\services.ps1"
+}
+
+# ############ ( ---------------- Scheduled Tasks ----------------) ############
+
+
+if ($Registry -or $All) {
+  . "${dotfilesDir}\setup\scheduled_tasks.ps1"
+}
+
 
 Exit 0
