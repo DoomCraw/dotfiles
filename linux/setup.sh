@@ -1,5 +1,6 @@
 #!/bin/bash
 # eza instead ls
+# awesome
 set -eu
 
 packages=()
