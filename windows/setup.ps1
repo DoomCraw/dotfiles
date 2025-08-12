@@ -32,7 +32,7 @@ if (!(Test-Path $profilePath)) {
   Copy-Item -Path ${dotfilesDir} -Destination $HOME -Include ** -Exclude setup.ps1,profile -Recurse -Force
 }
 
-. "${dotfilesDir}\bootstrap.ps1"
+# . "${dotfilesDir}\bootstrap.ps1"
 . "${dotfilesDir}\wsl\setup.ps1"
 
 # ############ ( ----------------     Registry    ----------------) ############
