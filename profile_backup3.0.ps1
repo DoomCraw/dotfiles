@@ -1,3 +1,5 @@
+Import-Module posh-git
+
 ## Environment
 $env:Path = @(
     'C:\Windows\system32',
