@@ -10,8 +10,8 @@ _up_ssh_tunnels () {
     create_ssh_local_tunel 4444 10.18.42.1:4444
     create_ssh_local_tunel 1443:10.18.42.43:443
     create_ssh_local_tunel 2443:10.18.42.44:443
-    create_ssh_local_tunel 3443:10.18.42.13:8006
-    create_ssh_local_tunel 4443:10.18.42.14:8006
+    create_ssh_local_tunel 3443:10.18.42.203:8006
+    create_ssh_local_tunel 4443:10.18.42.207:8006
     create_ssh_local_tunel 5443:10.18.42.29:443
 }
 
@@ -45,20 +45,4 @@ aws_config () {
     export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
     export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     export AWS_DEFAULT_REGION=me-south-1
-}
-
-
-tailscale_up () {
-    local login_server=$1
-    local auth_key=$2
-
-    sudo tailscale up \
-        --login-server ${login_server} \
-        --auth-key ${auth_key} \
-        --reset \
-        --timeout 10s \
-        --accept-routes=false \
-        --accept-dns=false
-
-    unset login_server auth_key
 }

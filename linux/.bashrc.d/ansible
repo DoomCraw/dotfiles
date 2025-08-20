@@ -11,11 +11,11 @@ _ansible_add_new_role () {
     for folder in tasks handlers files templates defaults vars meta; do
         mkdir -p ./roles/${role_name}/${folder}
         case "${folder}" in
-            tasks|handlers|defaults|meta) echo -e "---\n" >> ./roles/${role_name}/${folder}/main.yaml ;;
+            tasks|handlers|defaults|meta) echo -e "---\n" >> ./roles/${role_name}/${folder}/main.yml ;;
         esac
     done
 
-    unset role_name
+    unset role_name folder
 }
 
 _ansible_playbook () {

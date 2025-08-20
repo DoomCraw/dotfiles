@@ -91,6 +91,7 @@ tmap <leader>T <c-w>:tab term ++close<cr>
 au FileType yml,yaml setlocal ts=2 sts=2 sw=2 indentkeys-=0# " indentkeys-=<:>
 au BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
 au BufRead,BufNewFile */ansible/*.yaml set filetype=yaml.ansible
+au BufRead,BufNewFile */bashrc.d/* set filetype=bash
 
 " =============================== PLUGINS MANAGEMENT =========================================
 

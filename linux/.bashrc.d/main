@@ -3,8 +3,9 @@ functions
 aliases
 exports
 completion
-prompt
 ansible
+docker
+monitoring
 virtualbox
 ssh-agent
 exec

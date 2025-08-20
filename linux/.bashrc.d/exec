@@ -1,8 +1,11 @@
-# HOME
-cd ~
-
 # DIRCOLORS
 [ ! -f ~/.dircolors ] && eval $(dircolors ~/.dircolors)
+
+eval "$(starship init bash)"
+
+# HOME
+# cd ~
+cd /home/valeriy.z/git/job
 
 # Start tmux
 if [ -z $TMUX ]; then
