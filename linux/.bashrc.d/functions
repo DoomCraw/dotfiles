@@ -48,6 +48,11 @@ aws_config () {
 }
 
 _wfport () {
-    while ! nc -zw3 $@ > /dev/null 2>&1; do sleep 3; done
-    echo -e "Address $@ available."
+    local host=$1
+    local port=$2
+
+    while ! /usr/bin/nc -zw3 $host $port > /dev/null 2>&1; do sleep 3; done
+    echo -e "Address $host:$port available."
+
+    unset host port
 }
