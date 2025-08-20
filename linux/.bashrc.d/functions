@@ -47,6 +47,22 @@ aws_config () {
     export AWS_DEFAULT_REGION=me-south-1
 }
 
+tailscale_up () {
+    local login_server=$1
+    local auth_key=$2
+    local timeout=${3:-'10s'}
+
+    sudo tailscale up \
+        --login-server ${login_server} \
+        --auth-key ${auth_key} \
+        --reset \
+        --timeout 10s \
+        --accept-routes=false \
+        --accept-dns=false
+
+    unset login_server auth_key
+}
+
 _wfport () {
     local host=$1
     local port=$2

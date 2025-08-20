@@ -8,6 +8,7 @@ git pull origin main
 do_sync () {
 	rsync --exclude ".git" \
 		  --exclude ".gitignore" \
+		  --exclude ".gitconfig" \
 		  --exclude "deps" \
 		  --exclude "bootstrap.sh" \
 		  --exclude "setup.sh" \
