@@ -46,3 +46,8 @@ aws_config () {
     export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     export AWS_DEFAULT_REGION=me-south-1
 }
+
+_wfport () {
+    while ! nc -zw3 $@ > /dev/null 2>&1; do sleep 3; done
+    echo -e "Address $@ available."
+}
