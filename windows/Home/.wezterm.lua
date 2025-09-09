@@ -3,9 +3,9 @@ local mux = wezterm.mux
 local config = wezterm.config_builder()
 
 -- config.color_scheme = "Mariana"
-config.color_scheme = "Everforest Dark Medium (Gogh)"
+-- config.color_scheme = "Everforest Dark Medium (Gogh)"
 -- config.color_scheme = "Lab Fox"
--- config.color_scheme = "Laser"
+config.color_scheme = "Laser"
 
 -- config.default_prog = { "powershell.exe", "-NoLogo" }
 config.default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe", "-NoLogo" }

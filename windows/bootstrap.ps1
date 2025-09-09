@@ -1,30 +1,13 @@
-$PROFILE_PATH=(Split-Path $PROFILE -Parent)
+$profileDir = (Split-Path $PROFILE -Parent)
 
-Push-Location $PSScriptRoot
-
-if (!(Test-Path $PROFILE_PATH)) {
-    New-Item "${PROFILE_PATH}" -ItemType Directory -Force
+if (!(Test-Path $profileDir)) {
+    New-Item -Path $profileDir -ItemType Directory
 }
 
-Copy-Item -Path .\* -Destination $HOME -Exclude profile.d,wsl,bootstrap.ps1,setup.ps1 -Include ** -Recurse -Force
-Copy-Item -Path .\profile.d\* -Destination $PROFILE_PATH -Include ** -Recurse -Force
-
-'. "$(Split-Path $PROFILE -Parent)\profile.ps1"' | 
-Out-File -FilePath $PROFILE -Force -Encoding ascii -NoNewline
-
-if (!(Test-Path "${HOME}\AppData\Roaming\alacritty\themes")) {
-    git clone -q https://github.com/alacritty/alacritty-theme "${HOME}\AppData\Roaming\alacritty\themes"
-}
-
-if (!(Test-Path "${Env:LOCALAPPDATA}\nvim")) {
-    git clone -q https://github.com/LazyVim/starter "${Env:LOCALAPPDATA}\nvim"
-    # TODO: add lazyvim configs
-}
-
-Pop-Location
+Copy-Item -Path ${PSScriptRoot}\profile.ps1 -Destination $PROFILE -Force
+Copy-Item -Path ${PSScriptRoot}\Home\** -Destination $HOME -Include ** -Recurse -Force
 
 . $PROFILE
-
-Refresh-Environment
+# Refresh-Environment
 
 Exit 0

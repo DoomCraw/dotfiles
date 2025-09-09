@@ -2,7 +2,7 @@
 live_config_reload = true
 ipc_socket = false
 import = [
-    "~\\AppData\\Roaming\\alacritty\\themes\\themes\\autumn.toml"
+    "~\\AppData\\Roaming\\alacritty\\themes\\themes\\aura.toml"
 ]
 
 [env]
