@@ -34,8 +34,8 @@ git clone -q https://github.com/DoomCraw/dotfiles.git "${dotfilesDir}"
 Push-Location ${dotfilesDir}\windows
 
 . .\bootstrap.ps1
-# . .\personalize.ps1
-# . .\components\wsl\setup.ps1
+. .\personalize.ps1
+. .\components\wsl\setup.ps1
 
 Pop-Location
 

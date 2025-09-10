@@ -81,8 +81,8 @@ function Reset-NetworkAdapters {
 }
 
 function Reset-Wsl {
-    Get-Process tailscale-ipn,pritunl | Stop-Process -Force | Out-Null
-    Get-Service Tailscale,pritunl | Stop-Service -Force | Out-Null
+    Get-Process tailscale-ipn,pritunl -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue | Out-Null
+    Get-Service Tailscale,pritunl -ErrorAction SilentlyContinue | Stop-Service -Force -ErrorAction SilentlyContinue | Out-Null
     & wsl.exe --shutdown
     Stop-Service WSLService -Force
     Reset-NetworkAdapters
@@ -145,6 +145,13 @@ function Set-AWSEnvironment {
     $Env:AWS_DEFAULT_REGION     = 'me-south-1'
     $Env:AWS_ACCESS_KEY_ID      = (Read-Host -Prompt 'AWS_ACCESS_KEY_ID')
     $Env:AWS_SECRET_ACCESS_KEY  = (Read-Host -Prompt 'AWS_SECRET_ACCESS_KEY')
+}
+
+function ConvertTo-WSLPath {
+    Param(
+        [Parameter(Mandatory=$true)][string]$Path
+    )
+    return "/mnt/$(((Get-Item $Path).FullName.Split('\') -join '/').ToLower().Replace(':',''))"
 }
 
 

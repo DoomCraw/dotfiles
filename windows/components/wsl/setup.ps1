@@ -9,6 +9,7 @@ if (Get-Command wsl.exe -ErrorAction SilentlyContinue) {
     Exit 1
 }
 
+# To deploy with cloud-init $HOME\.cloud-init\<vmname>.user-data
 $wslDir   ='D:\vms\wsl'
 $wslName  ='workspace'
 $wslImage = @{

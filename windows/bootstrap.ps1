@@ -8,6 +8,6 @@ Copy-Item -Path ${PSScriptRoot}\profile.ps1 -Destination $PROFILE -Force
 Copy-Item -Path ${PSScriptRoot}\Home\** -Destination $HOME -Include ** -Recurse -Force
 
 . $PROFILE
-# Refresh-Environment
+Refresh-Environment
 
 Exit 0
