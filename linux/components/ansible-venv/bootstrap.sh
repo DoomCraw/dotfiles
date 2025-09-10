@@ -2,7 +2,7 @@
 
 set -eu
 
-pushd $(dirname ${BASH_SOURCE})
+pushd $(dirname "$0")
 
 force=${1:-""}
 venv_name=".ansible-venv"

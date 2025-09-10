@@ -1,23 +1,3 @@
-#!/bin/bash
-
-set -eu
-
-WSLUSER=${1:-wsluser}
-TAILSCALE_AUTH_KEY=''
-GIT_FOLDER=/mnt/d/git
-
-cd /root
-
-apt update -y 
-export DEBIAN_FRONTEND=noninteractive
-apt dist-upgrade \
-  -o "Dpkg::Options::=--force-confold" \
-  -o "Dpkg::Options::=--force-confdef" \
-  -y \
-  --allow-downgrades \
-  --allow-remove-essential \
-  --allow-change-held-packages
-
 # ADD REPOS AND INSTALL PACKAGES
 source /etc/os-release
 
