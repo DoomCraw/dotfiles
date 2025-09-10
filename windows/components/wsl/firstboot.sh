@@ -4,8 +4,15 @@ set -eu
 
 WSLUSER=${1:-"wsluser"}
 
+export DEBIAN_FRONTEND=noninteractive
 apt update -y && \
-    apt dist-upgrade -y
+    apt dist-upgrade \
+        -o "Dpkg::Options::=--force-confold" \
+        -o "Dpkg::Options::=--force-confdef" \
+        -y \
+        --allow-downgrades \
+        --allow-remove-essential \
+        --allow-change-held-packages
 
 if ! command -v curl > /dev/null; then
     apt install -y curl

@@ -9,7 +9,7 @@ do_sync () {
 	rsync --exclude ".git" \
 		  --exclude ".gitignore" \
 		  --exclude ".gitconfig" \
-		  --exclude "deps" \
+		  --exclude "components" \
 		  --exclude "bootstrap.sh" \
 		  --exclude "setup.sh" \
 		  --exclude "README.md" \
@@ -21,7 +21,7 @@ do_sync () {
 set_ssh_perms () {
 	chown ${USER}:${USER} -R ~/.ssh
 	chmod 0700 -R ~/.ssh
-	chmod 600 ~/.ssh/*
+	chmod 600 -R ~/.ssh/**
 }
 
 do_sync

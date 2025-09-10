@@ -28,8 +28,8 @@ ForEach-Object {
     winget install --silent --accept-package-agreements --accept-source-agreements -e -s winget --id $PSItem
 }
 
-dotfilesDir = "${HOME}\.dotfiles"
-git clone -q https://github.com/DoomCraw/dotfiles.git "${dotfilesDir}"
+$dotfilesDir = "${HOME}\.dotfiles"
+git clone -q https://github.com/DoomCraw/dotfiles "${dotfilesDir}"
 
 Push-Location ${dotfilesDir}\windows
 
