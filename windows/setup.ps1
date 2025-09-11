@@ -28,6 +28,9 @@ ForEach-Object {
     winget install --silent --accept-package-agreements --accept-source-agreements -e -s winget --id $PSItem
 }
 
+# For old programs installers
+& msiexec.exe -i https://download.microsoft.com/download/748580b8-0e66-45c5-a4b0-dbd37a44e230/16BitInstallShieldSupport.msi
+
 $dotfilesDir = "${HOME}\.dotfiles"
 git clone -q https://github.com/DoomCraw/dotfiles "${dotfilesDir}"
 
