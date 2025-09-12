@@ -2,8 +2,8 @@
 
 set -eu
 
-systemctl disable --now systemd-resolver && \
-    systemctl mask systemd-resolver
+systemctl disable --now systemd-resolved && \
+    systemctl mask systemd-resolved
 
 rm -f /etc/resolv.conf
 

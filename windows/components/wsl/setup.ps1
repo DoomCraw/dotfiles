@@ -16,7 +16,7 @@ $wslImage = @{
     OutFile = "${Env:TEMP}\ubuntu-24.04-wsl-root.tar.xz"
     Uri     = @(
         'https://cloud-images.ubuntu.com',
-        'releases/24.04/release-20250704',
+        'releases/24.04/release-20250805',
         'ubuntu-24.04-server-cloudimg-amd64-root.tar.xz'
     ) -join '/'
 }
@@ -29,9 +29,9 @@ if (!(Test-Path $wslDir)) {
 
 wsl --import $wslName $wslDir\$wslName $wslImage.OutFile
 wsl --set-default $wslName
-wsl -d $wslName -u root --shell-type standard /bin/bash -c "/bin/bash `$(wslpath `"${PSScriptRoot}\firstboot.sh`") `"$(${Env:USERNAME}.ToLower())`""
+wsl -d $wslName -u root --shell-type standard /bin/bash -c "/bin/bash `$(wslpath '${PSScriptRoot}\firstboot.sh') `"$(${Env:USERNAME}.ToLower())`""
 wsl -t $wslName
-wsl -d $wslName -u root --shell-type standard /bin/bash -c "/bin/bash `$(wslpath `"${PSScriptRoot}\resolvconf.sh`")"
+wsl -d $wslName -u root --shell-type standard /bin/bash -c "/bin/bash `$(wslpath '${PSScriptRoot}\resolvconf.sh')"
 wsl -d $wslName -u "$(${Env:USERNAME}.ToLower())" --shell-type standard /bin/bash -c 'cd ~; curl -fsSL https://raw.githubusercontent.com/DoomCraw/dotfiles/refs/heads/main/linux/setup.sh | sudo /bin/bash -'
 
 Remove-Item -Path $wslImage.OutFile -Force
