@@ -7,9 +7,9 @@ set -eu
 source /etc/os-release
 
 
-DEFAULT_COMPONENTS="+awscli;+docker;+nodejs;+tailscale;+terraform;+tflint"
+DEFAULT_COMPONENTS="awscli;docker;nodejs;tailscale;terraform;tflint"
 COMPONENTS=${1:-"${DEFAULT_COMPONENTS}"}
-COMPONENTS="+common;${COMPONENTS}"
+COMPONENTS="common;${COMPONENTS}"
 
 
 install_awscli () {
@@ -166,9 +166,7 @@ install_component () {
 
 IFS=";"
 for component in ${COMPONENTS}; do
-    if [[ $component =~ ^\+ ]]; then
-        install_component $component
-    fi
+    install_component $component
 done
 
 
