@@ -174,7 +174,9 @@ done
 
 # Environment dependent components
 
-test -n "${WSL_DISTRO_NAME}" && install_component "npiperelay"
+if [ -d /mnt/c/Windows -a -f /etc/wsl.conf ]; then
+    install_component "npiperelay"
+fi
 
 
 # Dotfiles
