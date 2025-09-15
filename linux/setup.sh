@@ -19,7 +19,7 @@ install_awscli () {
     rm -rf ./aws ./awscliv2.zip
 }
 
-
+# TODO fix iperf3 interactive install
 install_common () {
     apt update -y && \
         apt install -y \
@@ -178,16 +178,18 @@ fi
 
 
 # Dotfiles
+sudo -H -u ${SUDO_USER} /bin/bash << EOF
+cd ~
 
-dotfiles_dir="${HOME}/.dotfiles"
-git clone -q https://github.com/DoomCraw/dotfiles "${dotfiles_dir}"
+dotfiles_dir="\${HOME}/.dotfiles"
+git clone -q https://github.com/DoomCraw/dotfiles "\${dotfiles_dir}"
 
-pushd "${dotfiles_dir}/linux"
+pushd "\${dotfiles_dir}/linux"
 
 . ./bootstrap.sh
 . ./components/ansible-venv/bootstrap.sh
 
 popd
-
+EOF
 
 exit 0
