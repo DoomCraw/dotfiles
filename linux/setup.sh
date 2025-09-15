@@ -178,6 +178,7 @@ fi
 
 
 # Dotfiles
+
 sudo -H -u ${SUDO_USER} /bin/bash << EOF
 cd ~
 
@@ -191,5 +192,6 @@ pushd "\${dotfiles_dir}/linux"
 
 popd
 EOF
+
 
 exit 0
