@@ -72,3 +72,8 @@ _wfport () {
 
     unset host port
 }
+
+_mkd () {
+    test -d $1 || mkdir -p $1
+    pushd $1
+}

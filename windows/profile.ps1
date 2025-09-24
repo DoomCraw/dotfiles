@@ -45,7 +45,7 @@ if (Test-Path Alias:\grep)  { Remove-Item Alias:\grep }
 ${function:grep}  = { & grep.exe --color -Ei @args }
 ${function:curl}  = { & curl.exe --ssl-no-revoke @args }
 ${function:which} = {$result = (Get-Command @args -ErrorAction SilentlyContinue); if ($result.Source -eq "") {$result.ResolvedCommandName} else {$result.Path}}
-${function:ls}    = { & eza.exe -lA --group-directories-first --icons=always @args }
+${function:ls}    = { & eza.exe --group-directories-first --icons=always @args }
 ${function:ll}    = { & eza.exe -la --group-directories-first --icons=always @args }
 ${function:llr}   = { & eza.exe -lAT --group-directories-first --icons=always @args }
 ${function:ll3}   = { & eza.exe -lAT --group-directories-first --icons=always -L 3 @args }
