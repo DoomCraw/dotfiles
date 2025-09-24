@@ -8,9 +8,9 @@ discharging_symbol = '💀'
 threshold = 100
 style = 'bold green'
 
-[directory]
-format = '[$path]($style)[$read_only]($read_only_style) '
-style = 'bold yellow'
-read_only = '🔒'
-read_only_style = 'red'
-disabled = false
+# [directory]
+# format = '[$path]($style)[$read_only]($read_only_style) '
+# style = 'bold green'
+# read_only = '🔒'
+# read_only_style = 'red'
+# disabled = false
