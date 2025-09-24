@@ -20,6 +20,6 @@ _ansible_add_new_role () {
 
 _ansible_playbook () {
     source $ANSIBLE_VENV_PATH/bin/activate
-    ansible-playbook $@
+    /home/valeriy.z/.ansible-venv/bin/ansible-playbook $@
     deactivate
 }
