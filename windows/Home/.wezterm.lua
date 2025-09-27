@@ -2,11 +2,13 @@ local wezterm = require("wezterm")
 local mux = wezterm.mux
 local config = wezterm.config_builder()
 
--- config.color_scheme = "Mariana"
--- config.color_scheme = "Everforest Dark Medium (Gogh)"
--- config.color_scheme = "Lab Fox"
--- config.color_scheme = "Laser"
-config.color_scheme = "Gruvbox Material (Gogh)"
+-- config.color_scheme = 'Mariana'
+-- config.color_scheme = 'Everforest Dark Medium (Gogh)'
+-- config.color_scheme = 'Lab Fox'
+-- config.color_scheme = 'Laser'
+-- config.color_scheme = 'Gruvbox Material (Gogh)'
+-- config.color_scheme = 'Grayscale (dark) (terminal.sexy)'
+config.color_scheme = "GitHub Dark"
 
 -- config.default_prog = { "powershell.exe", "-NoLogo" }
 config.default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe", "-NoLogo" }
