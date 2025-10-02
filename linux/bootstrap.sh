@@ -34,17 +34,17 @@ if [ ! -d .vim/autoload -a ! -d .vim/bundle ]; then
 	curl -fsSL https://tpo.pe/pathogen.vim -o .vim/autoload/pathogen.vim
 
 	plugins=(
-	"https://github.com/vim-airline/vim-airline-themes vim-airline-themes"
-	"https://github.com/vim-airline/vim-airline vim-airline"
-	"https://github.com/sheerun/vim-polyglot vim-polyglot"
-	"https://github.com/sainnhe/everforest.git everforest"
-	"https://github.com/morhetz/gruvbox.git gruvbox"
-	"https://github.com/cocopon/iceberg.vim.git iceberg"
-	"https://github.com/preservim/nerdtree.git nerdtree"
-	"https://github.com/pearofducks/ansible-vim ansible-vim"
-	"https://github.com/neoclide/coc.nvim coc.nvim"
-	"https://github.com/martinda/Jenkinsfile-vim-syntax.git Jenkinsfile-vim-syntax"
-	"https://github.com/dense-analysis/ale ale"
+    "https://github.com/vim-airline/vim-airline-themes"
+    "https://github.com/vim-airline/vim-airline"
+    "https://github.com/sheerun/vim-polyglot"
+    "https://github.com/sainnhe/everforest"
+    "https://github.com/morhetz/gruvbox"
+    "https://github.com/cocopon/iceberg.vim"
+    "https://github.com/preservim/nerdtree"
+    "https://github.com/pearofducks/ansible-vim"
+    "https://github.com/neoclide/coc.nvim"
+    "https://github.com/martinda/Jenkinsfile-vim-syntax"
+    "https://github.com/dense-analysis/ale"
 	)
 
 	pushd .vim/bundle
