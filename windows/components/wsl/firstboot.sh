@@ -35,7 +35,7 @@ generateHosts=false
 generateResolvConf=false
 
 [boot]
-systemd=true
+systemd=false
 EOF
 
 chmod 644 /etc/wsl.conf && \

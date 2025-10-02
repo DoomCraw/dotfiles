@@ -6,8 +6,9 @@ set -eu
 
 source /etc/os-release
 
-
-DEFAULT_COMPONENTS="awscli;docker;nodejs;tailscale;terraform;tflint"
+# SUPPORTED COMPONENTS: awscli docker nodejs pritunl tailscale terraform tflint
+# DEFAULT_COMPONENTS="awscli;docker;nodejs;tailscale;terraform;tflint"
+DEFAULT_COMPONENTS="awscli;nodejs;terraform;tflint"
 COMPONENTS=${1:-"${DEFAULT_COMPONENTS}"}
 COMPONENTS="common;${COMPONENTS}"
 
