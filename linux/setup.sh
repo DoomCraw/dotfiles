@@ -7,9 +7,9 @@ export DEBIAN_FRONTEND=noninteractive
 
 source /etc/os-release
 
-# SUPPORTED COMPONENTS: awscli docker nodejs pritunl tailscale terraform tflint
-# DEFAULT_COMPONENTS="awscli;docker;nodejs;tailscale;terraform;tflint"
-DEFAULT_COMPONENTS="awscli;nodejs;terraform;tflint"
+# SUPPORTED COMPONENTS: awscli docker nodejs pritunl starship tailscale terraform tflint
+# DEFAULT_COMPONENTS="awscli;docker;nodejs;starship;tailscale;terraform;tflint"
+DEFAULT_COMPONENTS="awscli;nodejs;starship;terraform;tflint"
 COMPONENTS=${1:-"${DEFAULT_COMPONENTS}"}
 COMPONENTS="common;${COMPONENTS}"
 
@@ -31,6 +31,7 @@ install_common () {
             ca-certificates \
             cpio \
             curl \
+            eza \
             fonts-powerline \
             fzf \
             git \
@@ -117,6 +118,11 @@ install_pritunl () {
 }
 
 
+install_starship () {
+    curl -fsSL https://starship.rs/install.sh | /bin/sh -s -- -y
+}
+
+
 install_tailscale () {
     curl -fsSL https://pkgs.tailscale.com/stable/${ID}/${VERSION_CODENAME}.noarmor.gpg | \
         tee /etc/apt/keyrings/tailscale.gpg > /dev/null
@@ -157,6 +163,7 @@ install_component () {
         "nodejs") install_nodejs ;;
         "npiperelay") install_npiperelay ;;
         "pritunl") install_pritunl ;;
+        "starship") install_starship ;;
         "tailscale") install_tailscale ;;
         "terraform") install_terraform ;;
         "tflint") install_tflint ;;
