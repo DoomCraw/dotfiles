@@ -32,7 +32,7 @@ options="metadata,umask=22,fmask=11"
 
 [network]
 generateHosts=false
-generateResolvConf=false
+generateResolvConf=true
 
 [boot]
 systemd=false

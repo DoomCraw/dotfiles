@@ -3,6 +3,7 @@
 
 set -eu
 
+export DEBIAN_FRONTEND=noninteractive
 
 source /etc/os-release
 
