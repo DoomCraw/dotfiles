@@ -51,6 +51,7 @@ ${function:llr}   = { & eza.exe -lAT --group-directories-first --icons=always @a
 ${function:ll3}   = { & eza.exe -lAT --group-directories-first --icons=always -L 3 @args }
 ${function:l}     = { Get-ChildItem @args -Force }
 ${function:unzip} = { Expand-Archive @args }
+${function:tss}   = { tailscale switch (tailscale switch --list | Select-String -NotMatch '(Account|\*)$' -Raw).Split(' ')[0] }
 ${function:\~}    = { Set-Location $HOME }
 ${function:\..}   = { Set-Location .. }
 ${function:...}   = { Set-Location ../.. }
@@ -162,6 +163,7 @@ if (!(Test-Path HKCR:)) {
     $null = New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
     $null = New-PSDrive -Name HKU -PSProvider Registry -Root HKEY_USERS
 }
+
 
 # ############ ( ----------------     KeyMapping     ----------------) ############
 ## Bash-style keymapping
