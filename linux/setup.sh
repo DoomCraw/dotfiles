@@ -173,6 +173,18 @@ install_component () {
 }
 
 
+upgrade_os () {
+    apt update -y && \
+        apt dist-upgrade \
+            -o "Dpkg::Options::=--force-confold" \
+            -o "Dpkg::Options::=--force-confdef" \
+            -y \
+            --allow-downgrades \
+            --allow-remove-essential \
+            --allow-change-held-packages
+}
+
+
 IFS=";"
 for component in ${COMPONENTS}; do
     install_component $component

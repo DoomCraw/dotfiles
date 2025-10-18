@@ -1,3 +1,18 @@
+function Set-Registry {
+    Param (
+        [PSCustomObject]$Path,
+        [System.Collections.Hashtable]$Keys
+    )
+    if (!(Test-Path $Path)) {
+        New-Item -Force -Path $Path | Out-Null
+    }
+    $Keys.Keys | ForEach-Object {
+        Set-ItemProperty -Force -Path $Path -Name $PSItem -Value $Keys[$PSItem] | Out-Null
+    }
+}
+
+
+# Enable WSL
 if (Get-Command wsl.exe -ErrorAction SilentlyContinue) {
   if ((& wsl.exe --status).length -eq 0) {
       & wsl.exe --install --no-distribution
@@ -10,30 +25,45 @@ if (Get-Command wsl.exe -ErrorAction SilentlyContinue) {
 }
 
 # To deploy with cloud-init $HOME\.cloud-init\<vmname>.user-data
-$wslDir   ='D:\vms\wsl'
-$wslName  ='workspace'
-$wslImage = @{
-    OutFile = "${Env:TEMP}\ubuntu-24.04-wsl-root.tar.xz"
+if ((Get-Volume).DriveLetter -eq 'D') {
+    $imagesDir = 'D:\vms\images'
+    $wslDir    = 'D:\vms\wsl'
+} else {
+    $imagesDir = "${Env:USERPROFILE}\Documents\vms\images"
+    $wslDir    = "${Env:USERPROFILE}\Documents\vms\wsl"
+}
+
+$wslName   = 'workspace'
+$wslImage  = @{
+    OutFile = "${imagesDir}\ubuntu-24.04-server-cloudimg-amd64-root.tar.xz"
     Uri     = @(
         'https://cloud-images.ubuntu.com',
-        'releases/24.04/release-20250805',
+        'releases/24.04/release-20251001',
         'ubuntu-24.04-server-cloudimg-amd64-root.tar.xz'
     ) -join '/'
 }
 
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Invoke-WebRequest @wslImage
+if (!(Test-Path $imagesDir)) {
+    New-Item -Path $imagesDir -ItemType Directory
+}
+
 if (!(Test-Path $wslDir)) {
     New-Item -Path $wslDir -ItemType Directory
 }
 
+if (!(Test-Path $wslImage.OutFile)) {
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    Invoke-WebRequest @wslImage
+}
+
+Copy-Item -Path "${PSScriptRoot}\.wslconfig" -Destination "${Env:USERPROFILE}\.wslconfig" -Force
+wsl --shutdown
+
 wsl --import $wslName $wslDir\$wslName $wslImage.OutFile
 wsl --set-default $wslName
-wsl -d $wslName -u root --shell-type standard /bin/bash -c "/bin/bash `$(wslpath '${PSScriptRoot}\firstboot.sh') `"$(${Env:USERNAME}.ToLower())`""
+wsl -d $wslName -u root --shell-type standard /bin/bash -c "/bin/bash `$(wslpath '${PSScriptRoot}\firstboot.sh') `"$(${Env:USERNAME}.ToLower())`" `"$(${Env:COMPUTERNAME}.ToLower())`""
 wsl -t $wslName
-wsl -d $wslName -u root --shell-type standard /bin/bash -c "/bin/bash `$(wslpath '${PSScriptRoot}\resolvconf.sh')"
 wsl -d $wslName -u "$(${Env:USERNAME}.ToLower())" --shell-type standard /bin/bash -c 'cd ~; curl -fsSL https://raw.githubusercontent.com/DoomCraw/dotfiles/refs/heads/main/linux/setup.sh | sudo /bin/bash -'
 
-Remove-Item -Path $wslImage.OutFile -Force
 
 Exit 0
