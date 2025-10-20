@@ -32,6 +32,7 @@ function Get-Dotfiles {
 function Install-Dependencies {
     @(
         '7zip.7zip',
+        'Adobe.Acrobat.Reader.64-bit',
         'Alacritty.Alacritty',
         'Amazon.AWSCLI',
         'Discord.Discord',
