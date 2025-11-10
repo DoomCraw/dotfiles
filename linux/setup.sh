@@ -4,14 +4,30 @@
 set -eu
 
 export DEBIAN_FRONTEND=noninteractive
+REPO="https://github.com/DoomCraw/dotfiles"
 
 source /etc/os-release
 
-# SUPPORTED COMPONENTS: awscli docker nodejs pritunl starship tailscale terraform tflint
-# DEFAULT_COMPONENTS="awscli;docker;nodejs;starship;tailscale;terraform;tflint"
-DEFAULT_COMPONENTS="awscli;nodejs;starship;terraform;tflint"
-COMPONENTS=${1:-"${DEFAULT_COMPONENTS}"}
-COMPONENTS="common;${COMPONENTS}"
+
+get_dotfiles () {
+    if [[ -n "${SUDO_USER}" ]]; then
+        sudo -H -u $SUDO_USER \
+            /bin/bash -c "test -d ~/.dotfiles || git clone ${REPO} ~/.dotfiles"
+    else
+        test -d ~/.dotfiles || git clone ${REPO} ~/.dotfiles
+    fi
+}
+
+
+install_ansible () {
+    get_dotfiles
+    if [[ -n "${SUDO_USER}" ]]; then
+        sudo -H -u $SUDO_USER \
+            /bin/bash -c 'source ~/.dotfiles/linux/components/ansible/bootstrap.sh'
+    else
+        source ~/.dotfiles/linux/components/ansible/bootstrap.sh
+    fi
+}
 
 
 install_awscli () {
@@ -21,7 +37,7 @@ install_awscli () {
     rm -rf ./aws ./awscliv2.zip
 }
 
-# TODO fix iperf3 interactive install
+
 install_common () {
     apt update -y && \
         apt install -y \
@@ -80,7 +96,18 @@ install_docker () {
     apt update -y && \
         apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-    usermod -aG docker $(whoami)
+    usermod -aG docker ${SUDO_USER}
+}
+
+
+install_dotfiles () {
+    get_dotfiles
+    if [[ -n "${SUDO_USER}" ]]; then
+        sudo -H -u $SUDO_USER \
+            /bin/bash -c 'source ~/.dotfiles/linux/bootstrap.sh'
+    else
+        source ~/.dotfiles/linux/bootstrap.sh
+    fi
 }
 
 
@@ -157,9 +184,11 @@ install_component () {
     local component=$1
 
     case "${component}" in
+        "ansible") install_ansible ;;
         "awscli") install_awscli ;;
         "common") install_common ;;
         "docker") install_docker ;;
+        "dotfiles") install_dotfiles ;;
         "nodejs") install_nodejs ;;
         "npiperelay") install_npiperelay ;;
         "pritunl") install_pritunl ;;
@@ -185,34 +214,20 @@ upgrade_os () {
 }
 
 
+if [[ "$(uname -s)" == *"MINGW"* ]]; then
+    exit 0
+elif [[ "$(uname -r)" == *"WSL"* ]]; then
+    COMPONENTS=${COMPONENTS:-"common;ansible;awscli;dotfiles;nodejs;npiperelay;starship;terraform;tflint"}
+elif [[ "${NAME}" == "Linux Mint" ]]; then
+    COMPONENTS=${COMPONENTS:-"common;ansible;awscli;docker;dotfiles;nodejs;pritunl;starship;tailscale;terraform;tflint"}
+fi
+
+upgrade_os
+
 IFS=";"
 for component in ${COMPONENTS}; do
     install_component $component
 done
-
-
-# Environment dependent components
-
-if [ -d /mnt/c/Windows -a -f /etc/wsl.conf ]; then
-    install_component "npiperelay"
-fi
-
-
-# Dotfiles
-
-sudo -H -u ${SUDO_USER} /bin/bash << EOF
-cd ~
-
-dotfiles_dir="\${HOME}/.dotfiles"
-git clone -q https://github.com/DoomCraw/dotfiles "\${dotfiles_dir}"
-
-pushd "\${dotfiles_dir}/linux"
-
-. ./bootstrap.sh
-. ./components/ansible-venv/bootstrap.sh
-
-popd
-EOF
 
 
 exit 0

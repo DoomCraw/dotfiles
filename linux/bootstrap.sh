@@ -1,14 +1,14 @@
 #!/bin/bash
 
+
 set -eu
 
 pushd $(dirname ${BASH_SOURCE})
 git pull origin main
 
-do_sync () {
+sync_dotfiles () {
 	rsync --exclude ".git" \
 		  --exclude ".gitignore" \
-		  --exclude ".gitconfig" \
 		  --exclude "components" \
 		  --exclude "bootstrap.sh" \
 		  --exclude "setup.sh" \
@@ -24,7 +24,7 @@ set_ssh_perms () {
 	chmod 600 -R ~/.ssh/**
 }
 
-do_sync
+sync_dotfiles
 set_ssh_perms
 
 pushd ~
@@ -62,6 +62,9 @@ if [ ! -d .vim/autoload -a ! -d .vim/bundle ]; then
 fi
 
 if [ ! -d ~/.tmux/plugins/tpm ]; then
+	if [ ! -d ~/.tmux/plugins ]; then
+		mkdir -p ~/.tmux/plugins
+	fi
 	git clone -q https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
@@ -71,11 +74,9 @@ fi
 
 popd
 
-grep -wq 'source ~/.bashrc.d/main' ~/.bashrc || \
-	echo -e '\nsource ~/.bashrc.d/main' >> ~/.bashrc
+popd
 
-source ~/.bashrc.d/main
 
-unset do_sync set_ssh_perms plugins plugin
+unset sync_dotfiles set_ssh_perms plugins plugin
 
 exit 0

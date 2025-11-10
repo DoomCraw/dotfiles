@@ -32,7 +32,6 @@ function Get-Dotfiles {
 function Install-Dependencies {
     @(
         '7zip.7zip',
-        'Adobe.Acrobat.Reader.64-bit',
         'Alacritty.Alacritty',
         'Amazon.AWSCLI',
         'Discord.Discord',
@@ -46,6 +45,8 @@ function Install-Dependencies {
         'Microsoft.VisualStudioCode',
         'Neovim.Neovim',
         'Notepad++.Notepad++',
+        'Obsidian.Obsidian',
+        'OpenJS.NodeJS.LTS',
         'Pritunl.PritunlClient',
         'qBittorrent.qBittorrent',
         'SlackTechnologies.Slack',

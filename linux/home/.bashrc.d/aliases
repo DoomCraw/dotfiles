@@ -12,7 +12,17 @@ alias tss='echo 1' # TODO tailscale switch
 alias ssh_local_forward='create_ssh_local_tunel $@'
 alias kl='ssh-add -L | cut -d" " -f3'
 alias tmux='tmux attach -t 0 || tmux'
-alias ssh='ssh -o StrictHostKeyChecking=no'
+if [[ "$(uname -s)" == *"MINGW"* ]]; then
+    alias scp='/c/Windows/System32/OpenSSH/scp.exe'
+    alias sftp='/c/Windows/System32/OpenSSH/sftp.exe'
+    alias ssh-add='/c/Windows/System32/OpenSSH/ssh-add.exe'
+    alias ssh-agent='/c/Windows/System32/OpenSSH/ssh-agent.exe'
+    alias ssh-keygen='/c/Windows/System32/OpenSSH/ssh-keygen.exe'
+    alias ssh-keyscan='/c/Windows/System32/OpenSSH/ssh-keyscan.exe'
+    alias ssh='/c/Windows/System32/OpenSSH/ssh.exe -o StrictHostKeyChecking=no'
+else
+    alias ssh='ssh -o StrictHostKeyChecking=no'
+fi
 # alias ls='ls --color=always'
 alias ls='eza --group-directories-first --icons=always'
 alias ll='eza -la --group-directories-first --icons=always'
@@ -29,8 +39,3 @@ alias mkd='_mkd $@'
 alias '..'='cd ..'
 alias '...'='cd ../..'
 alias '....'='cd ../../..'
-
-if [[ "$(uname -s)" == *"MINGW"* ]]; then
-    alias ssh="/c/Windows/System32/OpenSSH/ssh.exe"
-    alias ssh-add="/c/Windows/System32/OpenSSH/ssh-add.exe"
-fi

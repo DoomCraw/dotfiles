@@ -42,22 +42,26 @@ if (Test-Path Alias:\kill)  { Remove-Item Alias:\kill }
 if (Test-Path Alias:\which) { Remove-Item Alias:\which }
 if (Test-Path Alias:\grep)  { Remove-Item Alias:\grep }
 
-${function:grep}  = { & grep.exe --color -Ei @args }
-${function:curl}  = { & curl.exe --ssl-no-revoke @args }
-${function:which} = {$result = (Get-Command @args -ErrorAction SilentlyContinue); if ($result.Source -eq "") {$result.ResolvedCommandName} else {$result.Path}}
-${function:ls}    = { & eza.exe --group-directories-first --icons=always @args }
-${function:ll}    = { & eza.exe -la --group-directories-first --icons=always @args }
-${function:llr}   = { & eza.exe -lAT --group-directories-first --icons=always @args }
-${function:ll3}   = { & eza.exe -lAT --group-directories-first --icons=always -L 3 @args }
-${function:l}     = { Get-ChildItem @args -Force }
-${function:unzip} = { Expand-Archive @args }
-${function:tss}   = { tailscale switch (tailscale switch --list | Select-String -NotMatch '(Account|\*)$' -Raw).Split(' ')[0] }
-${function:rnt}   = { Get-Process pritunl,tailscale-ipn -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Get-Service Tailscale,pritunl | Stop-Service; ipconfig.exe /renew; ipconfig.exe /flushdns; }
-${function:\~}    = { Set-Location $HOME }
-${function:\..}   = { Set-Location .. }
-${function:...}   = { Set-Location ../.. }
-${function:....}  = { Set-Location ../../.. }
-${function:.....} = { Set-Location ../../../.. }
+${function:halt}    = {Stop-Computer}
+${function:reboot}  = {Restart-Computer}
+${function:grep}    = { & grep.exe --color -Ei @args }
+${function:curl}    = { & curl.exe --ssl-no-revoke @args }
+${function:which}   = {$result = (Get-Command @args -ErrorAction SilentlyContinue); if ($result.Source -eq "") {$result.ResolvedCommandName} else {$result.Path}}
+${function:ls}      = { & eza.exe --group-directories-first --icons=always @args }
+${function:ll}      = { & eza.exe -la --group-directories-first --icons=always @args }
+${function:llr}     = { & eza.exe -lAT --group-directories-first --icons=always @args }
+${function:ll3}     = { & eza.exe -lAT --group-directories-first --icons=always -L 3 @args }
+${function:l}       = { Get-ChildItem @args -Force }
+${function:unzip}   = { Expand-Archive @args }
+${function:tss}     = { tailscale switch (tailscale switch --list | Select-String -NotMatch '(Account|\*)$' -Raw).Split(' ')[0] }
+${function:rnt}     = { Get-Process pritunl,tailscale-ipn -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Get-Service Tailscale,pritunl | Stop-Service; ipconfig.exe /renew; ipconfig.exe /flushdns; }
+${function:\~}      = { Set-Location $HOME }
+${function:\..}     = { Set-Location .. }
+${function:...}     = { Set-Location ../.. }
+${function:....}    = { Set-Location ../../.. }
+${function:.....}   = { Set-Location ../../../.. }
+
+function touch ($file) {"" | Out-File $file -NoNewLine -Encoding ASCII}
 
 function vim {
     if (which nvim.exe) {
@@ -120,25 +124,25 @@ function Add-SSHTunnel {
     )
     # TODO - $Env:SSH_TUNELS_PIDS
     $sshTunnel = @{
-        FilePath          = (which powershell.exe)
+        FilePath          = (which cmd.exe)
         WindowStyle       = 'Hidden'
         PassThru          = $true
         UseNewEnvironment = $true
         ArgumentList      = @(
-            "-NoLogo -NoProfile -NonInteractive"
-            "-Command `'& $((Get-Command ssh.exe).Path)"
+            "/c"
+            "$(which ssh.exe)"
             "-o StrictHostKeyChecking=no"
             "-o ControlMaster=no"
             "-o ServerAliveInterval=60"
             "-o ExitOnForwardFailure=yes"
             "-p ${ProxyPort}"
             "-nCNTL ${LocalHost}:${LocalPort}:${RemoteHost}:${RemotePort}" 
-            "${ProxyUser}@${ProxyHost}`'"
+            "${ProxyUser}@${ProxyHost}"
         ) -join ' '
     }
 
     if (!(Test-PortConnection -HostName $LocalHost -Port $LocalPort -Timeout 1)) {
-        Start-Process @sshTunnel
+        $parent_pid = (Start-Process @sshTunnel | Get-Process).Id
     }
 }
 
