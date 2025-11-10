@@ -53,7 +53,7 @@ ${function:llr}     = { & eza.exe -lAT --group-directories-first --icons=always 
 ${function:ll3}     = { & eza.exe -lAT --group-directories-first --icons=always -L 3 @args }
 ${function:l}       = { Get-ChildItem @args -Force }
 ${function:unzip}   = { Expand-Archive @args }
-${function:tss}     = { tailscale switch (tailscale switch --list | Select-String -NotMatch '(Account|\*)$' -Raw).Split(' ')[0] }
+${function:tss}     = { tailscale switch ((tailscale switch --list | Select-String -NotMatch '(Account|\*)$' | Out-String) -replace '\r\n','').Split(' ')[0] }
 ${function:rnt}     = { Get-Process pritunl,tailscale-ipn -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Get-Service Tailscale,pritunl | Stop-Service; ipconfig.exe /renew; ipconfig.exe /flushdns; }
 ${function:\~}      = { Set-Location $HOME }
 ${function:\..}     = { Set-Location .. }
