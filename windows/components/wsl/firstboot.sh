@@ -26,7 +26,7 @@ systemd=false
 [network]
 hostname=${WSLHOSTNAME}
 generateHosts=false
-generateResolvConf=true
+generateResolvConf=false
 
 [user]
 default=${WSLUSER}
