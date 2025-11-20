@@ -38,7 +38,7 @@ $wslImage  = @{
     OutFile = "${imagesDir}\ubuntu-24.04-server-cloudimg-amd64-root.tar.xz"
     Uri     = @(
         'https://cloud-images.ubuntu.com',
-        'releases/24.04/release-20251001',
+        'releases/24.04/release-20251031',
         'ubuntu-24.04-server-cloudimg-amd64-root.tar.xz'
     ) -join '/'
 }
