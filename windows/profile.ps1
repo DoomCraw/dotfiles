@@ -15,6 +15,7 @@ $Env:Path = @(
     'C:\Program Files\Git\bin',
     'C:\Program Files\Git\usr\bin',
     'C:\Program Files\Git\mingw64\bin',
+    'C:\Program Files\PowerShell\7',
     'C:\java\jdk-21.0.2\bin\',
     'C:\Program Files\Notepad++',
     'C:\Program Files\Tailscale\',
