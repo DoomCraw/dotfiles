@@ -97,6 +97,7 @@ install_docker () {
         apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
     usermod -aG docker ${SUDO_USER}
+    systemctl enable --now docker.service docker.socket containerd.service
 }
 
 
@@ -217,9 +218,9 @@ upgrade_os () {
 if [[ "$(uname -s)" == *"MINGW"* ]]; then
     exit 0
 elif [[ "$(uname -r)" == *"WSL"* ]]; then
-    COMPONENTS=${COMPONENTS:-"common;ansible;awscli;dotfiles;nodejs;npiperelay;starship;terraform;tflint"}
+    COMPONENTS=${COMPONENTS:-"common;ansible;awscli;nodejs;dotfiles;npiperelay;starship;terraform;tflint"}
 elif [[ "${NAME}" == "Linux Mint" ]]; then
-    COMPONENTS=${COMPONENTS:-"common;ansible;awscli;docker;dotfiles;nodejs;pritunl;starship;tailscale;terraform;tflint"}
+    COMPONENTS=${COMPONENTS:-"common;ansible;awscli;docker;nodejs;dotfiles;pritunl;starship;tailscale;terraform;tflint"}
 fi
 
 upgrade_os
