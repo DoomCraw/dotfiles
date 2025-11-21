@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 local mux = wezterm.mux
 local config = wezterm.config_builder()
+local act = wezterm.action
 
 -- config.color_scheme = 'Mariana'
 -- config.color_scheme = 'Everforest Dark Medium (Gogh)'
@@ -24,6 +25,41 @@ config.window_padding = {
 	bottom = 2,
 }
 
+-- config.leader = {
+-- 	key = "a",
+-- 	mods = "CTRL",
+-- 	timeout_milliseconds = 2000,
+-- }
+
+-- config.keys = {
+-- 	{
+-- 		key = "c",
+-- 		mods = "LEADER",
+-- 		action = act.SpawnTab("CurrentPaneDomain"),
+-- 	},
+-- 	{
+-- 		key = "v",
+-- 		mods = "LEADER",
+-- 		action = act.SplitPane({
+-- 			direction = "Right",
+-- 			size = { Percent = 50 },
+-- 		}),
+-- 	},
+-- 	{
+-- 		key = "h",
+-- 		mods = "LEADER",
+-- 		action = act.SplitPane({
+-- 			direction = "Down",
+-- 			size = { Percent = 50 },
+-- 		}),
+-- 	},
+-- 	{
+-- 		key = "h",
+-- 		mods = "CTRL",
+-- 		action = act.EmitEvent("move-left"),
+-- 	},
+-- }
+
 -- config.background = {
 -- 	{
 -- 		source = {
@@ -35,6 +71,7 @@ config.window_padding = {
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = true
 config.tab_max_width = 32
+config.max_fps = 144
 
 wezterm.on("gui-startup", function(cmd)
 	local tab, pane, window = mux.spawn_window(cmd or {})
