@@ -80,6 +80,15 @@ function kill ([string]$proc) {
 # ############ ( ----------------     Functions      ----------------) ############
 
 
+function Clean-SavedGames {
+  Get-ChildItem -Path .\ `
+    -File `
+    -Exclude 'steam_autocloud.vdf' `
+      | Sort-Object -Descending -Property LastWriteTime `
+      | Select-Object -Skip 10 `
+      | Remove-Item -Force
+}
+
 function Reset-NetworkAdapters {
     $ipconfigPath = (which ipconfig.exe)
     Start-Process -FilePath $ipconfigPath -ArgumentList '/renew' -NoNewWindow -Wait
