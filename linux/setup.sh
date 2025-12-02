@@ -56,6 +56,7 @@ install_awscli () {
 install_common () {
     apt update -y && \
         apt install -y \
+            ansible-lint \
             apt-transport-https \
             atop \
             bash-completion \
