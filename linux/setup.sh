@@ -19,6 +19,21 @@ get_dotfiles () {
 }
 
 
+local_install () {
+    local url="${1}"
+    local filename="$(echo $url | awk -F'/' '{print $NF}')"
+
+    test -d ~/.local || \
+        mkdir -p ~/.local
+
+    wget $url -O $filename
+    tar --strip-components=1 -xzf $filename -C ~/.local
+    rm -f $filename
+
+    unset url filename
+}
+
+
 install_ansible () {
     get_dotfiles
     if [[ -n "${SUDO_USER}" ]]; then
@@ -109,6 +124,11 @@ install_dotfiles () {
     else
         source ~/.dotfiles/linux/bootstrap.sh
     fi
+}
+
+
+install_neovim () {
+    local_install "https://github.com/neovim/neovim/releases/download/v0.11.5/nvim-linux-x86_64.tar.gz"
 }
 
 

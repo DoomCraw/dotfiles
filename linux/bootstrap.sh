@@ -72,6 +72,8 @@ if [ ! -f ~/.dircolors ]; then
 	dircolors --print-database > ~/.dircolors
 fi
 
+git clone -q https://codeberg.org/Larvitz/nvim-ansible.git ~/.config/nvim
+
 popd
 
 popd
