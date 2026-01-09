@@ -20,6 +20,7 @@ $Env:Path = @(
     'C:\Program Files\Notepad++',
     'C:\Program Files\Tailscale\',
     'C:\Program Files\Oracle\VirtualBox',
+    'C:\Program Files\WezTerm',
     "${Env:USERPROFILE}\.local\bin",
     'C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\',
     'C:\Users\doomc\AppData\Local\Microsoft\WindowsApps',
@@ -63,6 +64,8 @@ ${function:....}    = { Set-Location ../../.. }
 ${function:.....}   = { Set-Location ../../../.. }
 
 function touch ($file) {"" | Out-File $file -NoNewLine -Encoding ASCII}
+
+function term_set_title ($title) { & wezterm.exe cli set-tab-title "$title" }
 
 function vim {
     if (which nvim.exe) {

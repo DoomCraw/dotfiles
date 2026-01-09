@@ -5,7 +5,8 @@ eval "$(starship init bash)"
 
 # HOME
 # cd ~
-cd /mnt/d/yandex_disk/projects/admin-infrastructure
+# cd /mnt/d/yandex_disk/projects/admin-infrastructure
+cd /mnt/d/git
 
 # Start tmux
 if [ -z $TMUX ]; then
