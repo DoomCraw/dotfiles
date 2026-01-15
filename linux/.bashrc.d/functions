@@ -63,6 +63,12 @@ tailscale_up () {
     unset login_server auth_key
 }
 
+# check_cert () {
+#     hostname="${1}"
+#     echo | openssl s_client -connect ${hostname} -showcerts 2>&1 | grep -Ei 'after|before'
+#     unset hostname
+# }
+
 _wfport () {
     local host=$1
     local port=$2
