@@ -36,6 +36,9 @@ collections:
   - name: community.network
     version: 5.1.0
     source: https://galaxy.ansible.com
+  - name: community.zabbix
+    version: 4.1.1
+    source: https://galaxy.ansible.com
   - name: netapp.aws
     version: 21.7.1
     source: https://galaxy.ansible.com
