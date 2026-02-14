@@ -93,7 +93,7 @@ function Get-Dotfiles {
     } else {
         Push-Location $Global:dotfilesDir\windows
 
-        git pull origin master
+        git pull origin main
 
         Pop-Location
     }
