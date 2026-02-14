@@ -3,13 +3,19 @@ local mux = wezterm.mux
 local config = wezterm.config_builder()
 local act = wezterm.action
 
--- config.color_scheme = 'Mariana'
--- config.color_scheme = 'Everforest Dark Medium (Gogh)'
+-- config.color_scheme = "Mariana"
+-- config.color_scheme = "Everforest Dark Medium (Gogh)"
 -- config.color_scheme = 'Lab Fox'
 -- config.color_scheme = 'Laser'
--- config.color_scheme = 'Gruvbox Material (Gogh)'
+-- config.color_scheme = "Gruvbox Material (Gogh)"
 -- config.color_scheme = 'Grayscale (dark) (terminal.sexy)'
-config.color_scheme = "GitHub Dark"
+-- config.color_scheme = "GitHub Dark"
+-- config.color_scheme = "Neon"
+-- config.color_scheme = "Neon Night (Gogh)"
+-- config.color_scheme = "Neutron"
+-- config.color_scheme = "Neutron (Gogh)"
+config.color_scheme = "nightfox"
+-- config.color_scheme = "Nord (base16)"
 
 -- config.default_prog = { "powershell.exe", "-NoLogo" }
 config.default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe", "-NoLogo" }
