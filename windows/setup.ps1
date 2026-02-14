@@ -123,7 +123,7 @@ function Install-Dotfiles {
     Copy-Item -Path ${PWD}\profile.ps1 -Destination $PROFILE -Force
     Copy-Item -Path ${PWD}\Home\** -Destination $HOME -Include ** -Recurse -Force
 
-    if (Test-Path 'C:\Program Files\PowerShell\7\pwsh.exe' -and $PSVersionTable.PSVersion.Major -le 5) {
+    if ((Test-Path 'C:\Program Files\PowerShell\7\pwsh.exe') -and $PSVersionTable.PSVersion.Major -le 5) {
         $pwshProfile = (& 'C:\Program Files\PowerShell\7\pwsh.exe' -c 'echo $PROFILE')
         $pwshProfileDir = (Split-Path $pwshProfile -Parent)
 
@@ -146,7 +146,7 @@ function Install-Dotfiles {
     }
 
     . $PROFILE
-    Refresh-Environment
+    # TODO: Refresh-Environment
 
     Pop-Location
 }
