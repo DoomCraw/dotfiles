@@ -28,7 +28,7 @@ multiplier = 10
 bold = { style = "Bold" }
 
 [terminal]
-shell = { program = "powershell", args = ["-NoLogo", "-Command", "wsl -d ${env:DEFAULT_WSL}"] }
+shell = { program = "powershell", args = ["-NoLogo", "-Command", "wsl -d ${Env:DEFAULT_WSL}"] }
 
 [keyboard]
 bindings = [

@@ -28,7 +28,7 @@ collections:
     version: 3.13.3
     source: https://galaxy.ansible.com
   - name: community.general
-    version: 8.6.8
+    version: 12.3.0
     source: https://galaxy.ansible.com
   - name: community.library_inventory_filtering_v1
     version: 1.0.2

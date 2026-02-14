@@ -1,5 +1,8 @@
 # ############ ( ----------------     Environment    ----------------) ############
-# TODO double chekc and move to bootstrap.ps1
+# TODO double chekc and move to refreshenv
+# TODO winact
+# TODO refreshenv (Refresh-Environment from win2025 profile)
+# TODO merge with win2025 profile
 
 
 $Env:Path = @(
@@ -33,6 +36,10 @@ $Env:Path = @(
 $Env:EDITOR          = 'nvim.exe'
 $Env:HOSTS           = "${Env:WINDIR}\System32\drivers\etc\hosts"
 $Env:STARSHIP_CONFIG = "${Env:USERPROFILE}\.starship.toml"
+$Env:DOTFILES        = "D:\git\personal\dotfiles"
+$Env:YANDEX_DISK     = 'D:\yandex_disk'
+$Env:DEFAULT_WSL     = 'workspace'
+$Env:SSH_PROXY       = 'valeriy.z@100.64.0.18' # 100.64.0.12
 
 
 # ############ ( ----------------     Aliases        ----------------) ############
@@ -44,29 +51,32 @@ if (Test-Path Alias:\kill)  { Remove-Item Alias:\kill }
 if (Test-Path Alias:\which) { Remove-Item Alias:\which }
 if (Test-Path Alias:\grep)  { Remove-Item Alias:\grep }
 
-${function:halt}    = {Stop-Computer}
-${function:reboot}  = {Restart-Computer}
-${function:grep}    = { & grep.exe --color -Ei @args }
-${function:curl}    = { & curl.exe --ssl-no-revoke @args }
-${function:which}   = {$result = (Get-Command @args -ErrorAction SilentlyContinue); if ($result.Source -eq "") {$result.ResolvedCommandName} else {$result.Path}}
-${function:ls}      = { & eza.exe --group-directories-first --icons=always @args }
-${function:ll}      = { & eza.exe -la --group-directories-first --icons=always @args }
-${function:llr}     = { & eza.exe -lAT --group-directories-first --icons=always @args }
-${function:ll3}     = { & eza.exe -lAT --group-directories-first --icons=always -L 3 @args }
-${function:l}       = { Get-ChildItem @args -Force }
-${function:unzip}   = { Expand-Archive @args }
-${function:tss}     = { tailscale switch ((tailscale switch --list | Select-String -NotMatch '(Account|\*)$' | Out-String) -replace '\r\n','').Split(' ')[0] }
-${function:rnt}     = { Get-Process pritunl,tailscale-ipn -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Get-Service Tailscale,pritunl | Stop-Service; ipconfig.exe /renew; ipconfig.exe /flushdns; }
-${function:dof}     = { Set-Location D:\git\personal\dotfiles }
-${function:\~}      = { Set-Location $HOME }
-${function:\..}     = { Set-Location .. }
-${function:...}     = { Set-Location ../.. }
-${function:....}    = { Set-Location ../../.. }
-${function:.....}   = { Set-Location ../../../.. }
+${function:halt}              = { Stop-Computer }
+${function:reboot}            = { Restart-Computer }
+${function:grep}              = { & grep.exe --color -Ei @args }
+${function:curl}              = { & curl.exe --ssl-no-revoke @args }
+${function:which}             = { $result = (Get-Command @args -ErrorAction SilentlyContinue); if ($result.Source -eq "") {$result.ResolvedCommandName} else {$result.Path} }
+${function:ls}                = { & eza.exe --group-directories-first --icons=always @args }
+${function:ll}                = { & eza.exe -la --group-directories-first --icons=always @args }
+${function:llr}               = { & eza.exe -lAT --group-directories-first --icons=always @args }
+${function:ll3}               = { & eza.exe -lAT --group-directories-first --icons=always -L 3 @args }
+${function:l}                 = { Get-ChildItem @args -Force }
+${function:unzip}             = { Expand-Archive @args }
+${function:tss}               = { tailscale switch ((tailscale switch --list | Select-String -NotMatch '(Account|\*)$' | Out-String) -replace '\r\n','').Split(' ')[0] }
+${function:rnt}               = { Get-Process pritunl,tailscale-ipn -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue; Get-Service Tailscale,pritunl | Stop-Service; ipconfig.exe /renew; ipconfig.exe /flushdns; }
+${function:dof}               = { Set-Location ${Env:DOTFILES} }
+${function:dotfiles-update}   = { & ${Env:DOTFILES}\windows\setup.ps1 -Dotfiles }
+${function:start-wsl}         = { & wsl -d ${Env:DEFAULT_WSL} }
+${function:stop-wsl}          = { & wsl -t ${Env:DEFAULT_WSL} }
+${function:\~}                = { Set-Location $HOME }
+${function:\..}               = { Set-Location .. }
+${function:...}               = { Set-Location ../.. }
+${function:....}              = { Set-Location ../../.. }
+${function:.....}             = { Set-Location ../../../.. }
 
 function touch ($file) {"" | Out-File $file -NoNewLine -Encoding ASCII}
 
-function term_set_title ($title) { & wezterm.exe cli set-tab-title "$title" }
+function term_set_title ($title) { if (which wezterm.exe) {& wezterm.exe cli set-tab-title "$title"} }
 
 function vim {
     if (which nvim.exe) {
@@ -84,7 +94,20 @@ function kill ([string]$proc) {
 # ############ ( ----------------     Functions      ----------------) ############
 
 
-function Clean-SavedGames {
+function syncfiles {
+    param (
+        [string]$subcommand = ''
+    )
+
+    switch ($subcommand) {
+        'pull' { Copy-Item -Path ${Env:YANDEX_DISK}\*.kdbx -Destination $HOME\Documents }
+        'push' { Copy-Item -Path $HOME\Documents\*.kdbx -Destination ${Env:YANDEX_DISK} }
+        Default { Write-Host -Object 'No files to sync.' }
+    }
+}
+
+
+function Clear-SavedGames {
   Get-ChildItem -Path .\ `
     -File `
     -Exclude 'steam_autocloud.vdf' `
@@ -92,6 +115,7 @@ function Clean-SavedGames {
       | Select-Object -Skip 10 `
       | Remove-Item -Force
 }
+
 
 function Reset-NetworkAdapters {
     $ipconfigPath = (which ipconfig.exe)
@@ -110,6 +134,7 @@ function Reset-Wsl {
     Start-Service pritunl
 }
 
+
 function Test-PortConnection {
     Param (
         [string]$HostName,
@@ -126,14 +151,15 @@ function Test-PortConnection {
     $result
 }
 
+
 function Add-SSHTunnel {
     Param(
         [string]$LocalHost                                  = '127.0.0.1',
         [Parameter(mandatory=$true)][string]$LocalPort,
         [Parameter(mandatory=$true)][string]$RemoteHost,
         [Parameter(mandatory=$true)][string]$RemotePort,
-        [string]$ProxyUser                                  = 'valeriy.z',
-        [string]$ProxyHost                                  = '100.64.0.18', # 100.64.0.12
+        [string]$ProxyUser                                  = "$($Env:SSH_PROXY.Split('@')[0])",
+        [string]$ProxyHost                                  = "$($Env:SSH_PROXY.Split('@')[1])",
         [string]$ProxyPort                                  = 22
     )
     # TODO - $Env:SSH_TUNELS_PIDS
@@ -160,12 +186,14 @@ function Add-SSHTunnel {
     }
 }
 
+
 function Set-AWSEnvironment {
     $Env:AWS_REGION             = 'me-south-1'
     $Env:AWS_DEFAULT_REGION     = 'me-south-1'
     $Env:AWS_ACCESS_KEY_ID      = (Read-Host -Prompt 'AWS_ACCESS_KEY_ID')
     $Env:AWS_SECRET_ACCESS_KEY  = (Read-Host -Prompt 'AWS_SECRET_ACCESS_KEY')
 }
+
 
 function ConvertTo-WSLPath {
     Param(
@@ -207,3 +235,4 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+n' -Function NextHistory
 
 
 Invoke-Expression (& 'C:\Program Files\starship\bin\starship.exe' init powershell --print-full-init | Out-String)
+term_set_title "pwsh"

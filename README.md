@@ -5,11 +5,5 @@ OS apps and tools configs
 ```
 git clone https://github.com/DoomCraw/dotfiles.git ~/.dotfiles
 ~/.dotfiles/linux/bootstrap.sh
-~/.dotfiles/windows/bootstrap.ps1
+~/.dotfiles/windows/setup.ps1 -Dotfiles
 ```
-
-# TODO
-* Add VirtualBox.xml confgi to dotfiles
-* Add Steam config
-* Check yandexdisk configs registry
-* Check add to google profile
