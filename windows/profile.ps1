@@ -1,4 +1,5 @@
 # ############ ( ----------------     Environment    ----------------) ############
+# TODO sync all dotfiles
 # TODO double chekc and move to refreshenv
 # TODO winact
 # TODO refreshenv (Refresh-Environment from win2025 profile)
