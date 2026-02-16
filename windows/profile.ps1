@@ -1,10 +1,10 @@
 # ############ ( ----------------     Environment    ----------------) ############
-# TODO sync all dotfiles
+# TODO sync linux dotfiles
 # TODO double chekc and move to refreshenv
 # TODO winact
-# TODO refreshenv (Refresh-Environment from win2025 profile)
+# TODO refreshenv (Refresh-Environment from win2025 profile) add Install-Module posh-git
 # TODO merge with win2025 profile
-
+# TODO fzf/fd integration
 
 $Env:Path = @(
     'C:\Windows\system32',

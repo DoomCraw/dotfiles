@@ -1,4 +1,6 @@
 ## Variables
+$TimeZoneID = 'Arabian Standard Time'
+
 $disabledServices = @(
     'RasMan',
     'RasAuto',
@@ -13,6 +15,8 @@ $enabledServices = @(
 
 
 # ############ ( ----------------     System      ----------------) ############
+Set-TimeZone $TimeZoneID
+
 Disable-MMAgent -MemoryCompression
 
 
