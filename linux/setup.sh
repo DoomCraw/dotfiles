@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# TODO keepassxc
+# TODO vscode
 
 set -eu
 
