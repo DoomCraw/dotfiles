@@ -2,8 +2,8 @@
 
 
 export TAILSCALE_LOGIN_SERVER='https://headscale.devs.ae'
-export TAILSCALE_AUTH_KEY='e73a843745ce561b7c87f6f65489879582ff8f0d29bb2694'
-export PRITUNL_PROFILE='https://uae-1.vpn.devs.ae/k/Z92rV9Ui'
+export TAILSCALE_AUTH_KEY='ef5c505f6e132c90de90d2d87adc5f3d2b742d04c3aeb547'
+export PRITUNL_PROFILE='https://uae-1.vpn.devs.ae/k/2QT8oreh'
 
 
 export DEBIAN_FRONTEND=noninteractive
