@@ -20,6 +20,24 @@ get_dotfiles () {
 }
 
 
+get_os_codename () {
+    if [[ "${NAME}" == "Linux Mint" ]]; then
+        echo ${UBUNTU_CODENAME}
+    else
+        echo ${VERSION_CODENAME}
+    fi
+}
+
+
+get_os_id () {
+    if grep -q 'UBUNTU_CODENAME' /etc/os-release; then
+        echo 'ubuntu'
+    else
+        echo ${ID}
+    fi
+}
+
+
 local_install () {
     local url="${1}"
     local filename="$(echo $url | awk -F'/' '{print $NF}')"
@@ -108,13 +126,8 @@ install_docker () {
     curl -fsSL 'https://download.docker.com/linux/ubuntu/gpg' | \
         gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-    if [[ "${NAME}" == "Linux Mint" ]]; then
-        echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu ${UBUNTU_CODENAME} stable" | \
-            tee /etc/apt/sources.list.d/docker.list > /dev/null
-    else
-        echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu ${VERSION_CODENAME} stable" | \
-            tee /etc/apt/sources.list.d/docker.list > /dev/null
-    fi
+    echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(get_os_codename) stable" | \
+        tee /etc/apt/sources.list.d/docker.list > /dev/null
 
     apt update -y && \
         apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
@@ -164,7 +177,7 @@ install_npiperelay () {
 install_pritunl () {
     curl -fsSL https://raw.githubusercontent.com/pritunl/pgp/master/pritunl_repo_pub.asc | \
         gpg --dearmor -o /etc/apt/keyrings/pritunl.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/pritunl.gpg] http://repo.pritunl.com/stable/apt ${VERSION_CODENAME} main" | \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/pritunl.gpg] http://repo.pritunl.com/stable/apt $(get_os_codename) main" | \
         tee /etc/apt/sources.list.d/pritunl.list > /dev/null
 
     apt update -y && \
@@ -180,9 +193,9 @@ install_starship () {
 
 
 install_tailscale () {
-    curl -fsSL https://pkgs.tailscale.com/stable/${ID}/${VERSION_CODENAME}.noarmor.gpg | \
+    curl -fsSL https://pkgs.tailscale.com/stable/$(get_os_id)/$(get_os_codename).noarmor.gpg | \
         tee /etc/apt/keyrings/tailscale.gpg > /dev/null
-    echo "deb [signed-by=/etc/apt/keyrings/tailscale.gpg] https://pkgs.tailscale.com/stable/${ID} ${VERSION_CODENAME} main" | \
+    echo "deb [signed-by=/etc/apt/keyrings/tailscale.gpg] https://pkgs.tailscale.com/stable/$(get_os_id) $(get_os_codename) main" | \
         tee /etc/apt/sources.list.d/tailscale.list > /dev/null
 
     apt update -y && \
@@ -195,7 +208,7 @@ install_tailscale () {
 install_terraform () {
     curl -fsSL https://apt.releases.hashicorp.com/gpg | \
         gpg --dearmor -o /etc/apt/keyrings/hashicorp.gpg
-    echo "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com ${VERSION_CODENAME} main" | \
+    echo "deb [signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com $(get_os_codename) main" | \
         tee /etc/apt/sources.list.d/hashicorp.list > /dev/null
 
     apt update -y && \
