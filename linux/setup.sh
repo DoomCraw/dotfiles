@@ -1,6 +1,7 @@
 #!/bin/bash
 # TODO keepassxc
 # TODO vscode
+# TODO vivaldi browser
 
 set -eu
 
