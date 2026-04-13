@@ -1,7 +1,5 @@
 #!/bin/bash
-# TODO keepassxc
-# TODO vscode
-# TODO vivaldi browser
+
 
 set -eu
 
@@ -149,8 +147,23 @@ install_dotfiles () {
 }
 
 
+install_keepassxc () {
+    apt install -y keepassxc
+}
+
+
 install_neovim () {
     local_install "https://github.com/neovim/neovim/releases/download/v0.11.5/nvim-linux-x86_64.tar.gz"
+}
+
+
+install_nerd_fonts () {
+    if [[ -n "${SUDO_USER}" ]]; then
+        sudo -H -u $SUDO_USER \
+            /bin/bash -c 'source ~/.dotfiles/linux/components/nerd-fonts/bootstrap.sh'
+    else
+        source ~/.dotfiles/linux/components/nerd-fonts/bootstrap.sh
+    fi
 }
 
 
@@ -223,6 +236,26 @@ install_tflint () {
 }
 
 
+install_vscode () {
+    wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O ./code_latest_amd64.deb && \
+        apt install -y ./code_latest_amd64.deb && \
+            rm -f ./code_latest_amd64.deb
+    if [[ -n "${SUDO_USER}" ]]; then
+        sudo -H -u $SUDO_USER \
+            /bin/bash -c 'source ~/.dotfiles/linux/components/vscode/bootstrap.sh'
+    else
+        source ~/.dotfiles/linux/components/vscode/bootstrap.sh
+    fi
+}
+
+
+install_vivaldi () {
+    wget 'https://downloads.vivaldi.com/stable/vivaldi-stable_7.9.3970.50-1_amd64.deb' -O ./vivaldi_latest-amd64.deb && \
+        apt install -y ./vivaldi_latest-amd64.deb && \
+            rm -f ./vivaldi_latest-amd64.deb
+}
+
+
 install_component () {
     local component=$1
 
@@ -232,6 +265,8 @@ install_component () {
         "common") install_common ;;
         "docker") install_docker ;;
         "dotfiles") install_dotfiles ;;
+        "keepassxc") install_keepassxc ;;
+        "nerd-fonts") install_nerd_fonts ;;
         "nodejs") install_nodejs ;;
         "npiperelay") install_npiperelay ;;
         "pritunl") install_pritunl ;;
@@ -239,6 +274,8 @@ install_component () {
         "tailscale") install_tailscale ;;
         "terraform") install_terraform ;;
         "tflint") install_tflint ;;
+        "vscode") install_vscode ;;
+        "vivaldi") install_vivaldi ;;
     esac
 
     unset component
@@ -262,7 +299,7 @@ if [[ "$(uname -s)" == *"MINGW"* ]]; then
 elif [[ "$(uname -r)" == *"WSL"* ]]; then
     COMPONENTS=${COMPONENTS:-"common;ansible;awscli;nodejs;dotfiles;npiperelay;starship;terraform;tflint"}
 elif [[ "${NAME}" == "Linux Mint" ]]; then
-    COMPONENTS=${COMPONENTS:-"common;ansible;awscli;docker;nodejs;dotfiles;pritunl;starship;tailscale;terraform;tflint"}
+    COMPONENTS=${COMPONENTS:-"common;ansible;awscli;docker;nodejs;dotfiles;keepassxc;nerd-fonts;pritunl;starship;tailscale;terraform;tflint;vscode;vivaldi"}
 fi
 
 upgrade_os
