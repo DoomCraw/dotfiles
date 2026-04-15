@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# TODO update deps versions
 
 pushd $(dirname ${BASH_SOURCE})
 git pull origin main

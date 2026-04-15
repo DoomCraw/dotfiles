@@ -153,7 +153,7 @@ install_keepassxc () {
 
 
 install_neovim () {
-    local_install "https://github.com/neovim/neovim/releases/download/v0.11.5/nvim-linux-x86_64.tar.gz"
+    local_install "https://github.com/neovim/neovim/releases/download/v0.12.1/nvim-linux-x86_64.tar.gz"
 }
 
 
@@ -168,10 +168,13 @@ install_nerd_fonts () {
 
 
 install_nodejs () {
-    curl -fsSL https://deb.nodesource.com/setup_22.x | /bin/bash -
+    # curl -fsSL https://deb.nodesource.com/setup_22.x | /bin/bash -
 
-    apt update -y && \
-        apt install -y nodejs
+    # apt update -y && \
+    #     apt install -y nodejs
+    curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | /bin/bash -
+    source ~/.nvm/nvm.sh
+    nvm install 24
 }
 
 
