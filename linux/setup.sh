@@ -267,6 +267,7 @@ install_component () {
         "dotfiles") install_dotfiles ;;
         "keepassxc") install_keepassxc ;;
         "nerd-fonts") install_nerd_fonts ;;
+        "neovim") install_neovim ;;
         "nodejs") install_nodejs ;;
         "npiperelay") install_npiperelay ;;
         "pritunl") install_pritunl ;;
@@ -299,7 +300,7 @@ if [[ "$(uname -s)" == *"MINGW"* ]]; then
 elif [[ "$(uname -r)" == *"WSL"* ]]; then
     COMPONENTS=${COMPONENTS:-"common;ansible;awscli;nodejs;dotfiles;npiperelay;starship;terraform;tflint"}
 elif [[ "${NAME}" == "Linux Mint" ]]; then
-    COMPONENTS=${COMPONENTS:-"common;ansible;awscli;docker;nodejs;dotfiles;keepassxc;nerd-fonts;pritunl;starship;tailscale;terraform;tflint;vscode;vivaldi"}
+    COMPONENTS=${COMPONENTS:-"common;ansible;awscli;docker;nodejs;dotfiles;keepassxc;nerd-fonts;neovim;pritunl;starship;tailscale;terraform;tflint;vscode;vivaldi"}
 fi
 
 upgrade_os

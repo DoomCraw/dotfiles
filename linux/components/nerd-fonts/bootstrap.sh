@@ -10,7 +10,12 @@ wget 'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrains
 wget 'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip' -O FiraCode.zip
 wget 'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/BitstreamVeraSansMono.zip' -O BitstreamVeraSansMono.zip
 
-unzip *.zip
+
+for zip_file in *.zip; do
+    unzip -of "${zip_file}"
+done
+
+
 rm -f *.zip
 
 popd
