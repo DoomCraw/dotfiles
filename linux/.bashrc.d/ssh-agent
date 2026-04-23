@@ -29,6 +29,9 @@ if [ -n "${WSL_DISTRO_NAME}" ]; then
         chmod 600 $SSH_AUTH_SOCK
     fi
 else
-    init_ssh_agent
-    # init_ssh_agent "${SSH_KEYS}"
+    if [ -n "${SSH_KEYS}" ]; then
+        init_ssh_agent "${SSH_KEYS}"
+    else
+        init_ssh_agent
+    fi
 fi

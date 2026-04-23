@@ -13,6 +13,7 @@ _up_ssh_tunnels () {
     create_ssh_local_tunel 3443:10.18.42.203:8006
     create_ssh_local_tunel 4443:10.18.42.207:8006
     create_ssh_local_tunel 5443:10.18.42.29:443
+    create_ssh_local_tunel 6443:10.18.42.25:443
 }
 
 sshpr () {
