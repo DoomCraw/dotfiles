@@ -14,8 +14,8 @@ local act = wezterm.action
 -- config.color_scheme = "Neon Night (Gogh)"
 -- config.color_scheme = "Neutron"
 -- config.color_scheme = "Neutron (Gogh)"
-config.color_scheme = "nightfox"
--- config.color_scheme = "Nord (base16)"
+-- config.color_scheme = "nightfox"
+config.color_scheme = "Nord (base16)"
 
 -- config.default_prog = { "powershell.exe", "-NoLogo" }
 config.default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe", "-NoLogo" }

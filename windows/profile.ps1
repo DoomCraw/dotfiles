@@ -1,5 +1,5 @@
 # ############ ( ----------------     Environment    ----------------) ############
-# TODO sync linux dotfiles
+# TODO sync all dotfiles
 # TODO double chekc and move to refreshenv
 # TODO winact
 # TODO refreshenv (Refresh-Environment from win2025 profile) add Install-Module posh-git
@@ -202,6 +202,34 @@ function ConvertTo-WSLPath {
     )
     return "/mnt/$(((Get-Item $Path).FullName.Split('\') -join '/').ToLower().Replace(':',''))"
 }
+
+
+# ############ ( ----------------        RDP         ----------------) ############
+
+
+function rdp ([string] $server, [string] $port='3389') {
+    if (!(& cmdkey.exe /list | Where-Object {$PSItem -match $server})) {
+        $username = Read-Host -Prompt 'Username'
+        $password = Read-Host -Prompt 'Password' -MaskInput
+        & cmdkey.exe /generic:TERMSRV/$server /user:$username /pass:$password
+        $username = $password = $null
+    }
+    & mstsc.exe /v:$server:$port /f
+}
+
+
+function rdp_autocomplete {
+    & cmdkey.exe /list | `
+        ForEach-Object {
+            if ($PSItem -match 'target=TERMSRV') {
+                $RDPServer = $PSItem.Split('=')[1].Replace('TERMSRV/','')
+                Write-Host $RDPServer
+            }
+        }
+}
+
+
+# ############ ( ----------------        SSH         ----------------) ############
 
 
 # ############ ( ----------------     PSDrives       ----------------) ############

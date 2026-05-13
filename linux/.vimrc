@@ -56,12 +56,12 @@ set background=dark " dark, light
 " let g:everforest_better_performance = 1
 " let g:airline_theme = 'everforest'
 
-let g:gruvbox_contrast_dark='hard'
+" let g:gruvbox_contrast_dark='hard'
 if has('termguicolors')
   set termguicolors
 endif
 
-autocmd VIMEnter * ++nested colorscheme gruvbox
+autocmd VIMEnter * ++nested colorscheme nord
 
 " ===============================       KEYMAP       =========================================
 " tabs
