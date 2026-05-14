@@ -207,26 +207,26 @@ function ConvertTo-WSLPath {
 # ############ ( ----------------        RDP         ----------------) ############
 
 
-function rdp ([string] $server, [string] $port='3389') {
-    if (!(& cmdkey.exe /list | Where-Object {$PSItem -match $server})) {
-        $username = Read-Host -Prompt 'Username'
-        $password = Read-Host -Prompt 'Password' -MaskInput
-        & cmdkey.exe /generic:TERMSRV/$server /user:$username /pass:$password
-        $username = $password = $null
-    }
-    & mstsc.exe /v:$server:$port /f
-}
+# function rdp ([string] $server, [string] $port='3389') {
+#     if (!(& cmdkey.exe /list | Where-Object {$PSItem -match $server})) {
+#         $username = Read-Host -Prompt 'Username'
+#         $password = Read-Host -Prompt 'Password' -MaskInput
+#         & cmdkey.exe /generic:TERMSRV/$server /user:$username /pass:$password
+#         $username = $password = $null
+#     }
+#     & mstsc.exe /v:$server:$port /f
+# }
 
 
-function rdp_autocomplete {
-    & cmdkey.exe /list | `
-        ForEach-Object {
-            if ($PSItem -match 'target=TERMSRV') {
-                $RDPServer = $PSItem.Split('=')[1].Replace('TERMSRV/','')
-                Write-Host $RDPServer
-            }
-        }
-}
+# function rdp_autocomplete {
+#     & cmdkey.exe /list | `
+#         ForEach-Object {
+#             if ($PSItem -match 'target=TERMSRV') {
+#                 $RDPServer = $PSItem.Split('=')[1].Replace('TERMSRV/','')
+#                 Write-Host $RDPServer
+#             }
+#         }
+# }
 
 
 # ############ ( ----------------        SSH         ----------------) ############
