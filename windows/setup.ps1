@@ -1,8 +1,12 @@
+# TODO: refactor structure
 Param (
     [switch]$All            = $false,
     [switch]$Dependencies   = $false,
     [switch]$Dotfiles       = $false,
     [switch]$VSCode         = $false,
+    [switch]$Portable       = $false,
+    [switch]$Chocolatey     = $false,
+    [switch]$Fonts          = $false,
     [switch]$WSL            = $false
 )
 
@@ -149,6 +153,16 @@ function Install-Dotfiles {
     # TODO: Refresh-Environment
 
     Pop-Location
+}
+
+
+function Install-Chocolatey {
+    if (!(Get-Command 'choco.exe' -CommandType Application -ErrorAction SilentlyContinue) -and
+          (Test-Connection 'community.chocolatey.org' -TimeoutSeconds 2 -Count 1 -Delay 5)) {
+      Set-ExecutionPolicy Bypass -Scope Process -Force -Confirm:$false;
+      [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+      Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'));
+    }
 }
 
 

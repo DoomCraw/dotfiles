@@ -3,19 +3,27 @@ local mux = wezterm.mux
 local config = wezterm.config_builder()
 local act = wezterm.action
 
--- config.color_scheme = "Mariana"
--- config.color_scheme = "Everforest Dark Medium (Gogh)"
--- config.color_scheme = 'Lab Fox'
--- config.color_scheme = 'Laser'
--- config.color_scheme = "Gruvbox Material (Gogh)"
--- config.color_scheme = 'Grayscale (dark) (terminal.sexy)'
--- config.color_scheme = "GitHub Dark"
--- config.color_scheme = "Neon"
--- config.color_scheme = "Neon Night (Gogh)"
--- config.color_scheme = "Neutron"
--- config.color_scheme = "Neutron (Gogh)"
--- config.color_scheme = "nightfox"
-config.color_scheme = "Nord (base16)"
+-- -------------------------- THEMES --------------------------
+-- Mariana
+-- Everforest Dark Medium (Gogh)
+-- Lab Fox
+-- Laser
+-- Gruvbox Material (Gogh)
+-- Grayscale (dark) (terminal.sexy)
+-- GitHub Dark
+-- Neon
+-- Warm Neon
+-- Whimsy
+-- Neon Night (Gogh)
+-- Neutron
+-- Neutron (Gogh)
+-- nightfox
+-- Nord (base16)
+-- ------------------------------------------------------------
+color_scheme = "Whimsy"
+config.color_scheme = color_scheme or ""
+
+-- background_picture = "D:/yandex_disk/pictures/city03.jpg"
 
 -- config.default_prog = { "powershell.exe", "-NoLogo" }
 config.default_prog = { "C:/Program Files/PowerShell/7/pwsh.exe", "-NoLogo" }
@@ -32,11 +40,36 @@ config.window_padding = {
 }
 
 -- config.leader = {
--- 	key = "a",
+-- 	key = "b",
 -- 	mods = "CTRL",
 -- 	timeout_milliseconds = 2000,
 -- }
 
+-- config.keys = {
+-- 	{
+-- 		key = "f",
+-- 		mods = "ALT",
+-- 		action = act.TogglePaneZoomState,
+-- 	},
+-- 	{
+-- 		key = "v",
+-- 		mods = "LEADER",
+-- 		action = act.SplitPane({
+-- 			direction = "Right",
+-- 			size = { Percent = 50 },
+-- 		}),
+-- 	},
+-- 	{
+-- 		key = "h",
+-- 		mods = "ALT",
+-- 		action = act.ActivatePaneDirection("Left"),
+-- 	},
+-- 	{
+-- 		key = "l",
+-- 		mods = "ALT",
+-- 		action = act.ActivatePaneDirection("Right"),
+-- 	},
+-- }
 -- config.keys = {
 -- 	{
 -- 		key = "c",
@@ -66,17 +99,17 @@ config.window_padding = {
 -- 	},
 -- }
 
--- config.background = {
--- 	{
--- 		source = {
--- 			File = "D:/yandex_disk/pictures/moon.png",
--- 		},
--- 	},
--- }
+config.background = {
+	{
+		source = {
+			File = background_picture or "",
+		},
+	},
+}
 
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = true
-config.tab_max_width = 32
+config.tab_max_width = 16
 config.max_fps = 144
 
 wezterm.on("gui-startup", function(cmd)
