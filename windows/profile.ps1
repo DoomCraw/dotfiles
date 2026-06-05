@@ -9,10 +9,13 @@
 # TODO: add scripts dir create wsl
 # TODO: add scripts dir create vbox vm
 
+
 # WSL2 TODO
 # TODO Ansible:
 #   - Dockerfile
 #   - WorkSpace for VSCode
+#   - PwSh autocompletion for ansible(wsl/venv)
+#       https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/register-argumentcompleter?view=powershell-7.6
 # TODO ZSH:
 #   - Dockerfile
 #   - Personal WorkSpace

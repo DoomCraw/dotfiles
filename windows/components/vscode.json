@@ -1,0 +1,22 @@
+{
+    "window.newWindowDimensions": "maximized",
+    "chat.disableAIFeatures": true,
+    "chat.agent.enabled": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "security.workspace.trust.untrustedFiles": "newWindow",
+    "redhat.telemetry.enabled": false,
+    "workbench.colorTheme": "Kanagawa Wave",
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "explorer.confirmPasteNative": false,
+    "git.openRepositoryInParentFolders": "never",
+    "workbench.secondarySideBar.defaultVisibility": "hidden"
+}
