@@ -41,14 +41,31 @@ local_install () {
     local url="${1}"
     local filename="$(echo $url | awk -F'/' '{print $NF}')"
 
+    local retries=2
+
     test -d ~/.local || \
         mkdir -p ~/.local
 
-    wget $url -O $filename
-    tar --strip-components=1 -xzf $filename -C ~/.local
+    if nc -zw3 google.com 443 > /dev/null 2>&1; then
+        if which wget > /dev/null 2>&1; then
+            while (!wget -c $url -qO $filename) && [[ $retries -ne 0 ]]; do
+                sleep 2
+                retries=$(($retries - 1))
+            done
+        elif which curl > /dev/null 2>&1; then
+            while (!curl -C - -fsSL $url -o $filename) && [[ $retries -ne 0 ]]; do
+                sleep 2
+                retries=$(($retries - 1))
+            done
+        fi
+    else
+        echo -e "No internet connection. Local pcakages can't be installed." # TODO replace to error fucntion
+    fi
+
+    tar -xzf $filename -C ~/.local --strip-components=1 #TODO add more arhcive formats support xz etc.
     rm -f $filename
 
-    unset url filename
+    unset url filename retries
 }
 
 

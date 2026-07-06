@@ -155,6 +155,11 @@ function llf ([string]$name = '') {
     $res
 }
 
+# TODO: finding files in preordered dirs
+# function lle ([string]$ext) {
+#     gci $Env:SEARCH_EXTS -Recurse --Force -File- Filter "$filter" -ErrorAction SilentlyContinue | select FullName
+# }
+
 function sudo {
     if ($args.length -gt 1) {
         Start-Process $args[0] -ArgumentList $args[1..($args.length - 1)] -Verb RunAs -WindowStyle Maximized
@@ -183,6 +188,8 @@ Set-Alias msync syncfiles
 
 
 function Update-Profile {
+  # TODO: Update-Profile should update profile file from inet
+  # TODO: Update-Profile should update env vars and Refresh-Environment
   $dotfiles_profile = "${Env:DOTFILES}\windows\profile.ps1"
   if (diff -q $PROFILE $dotfiles_profile) {
       cp $PROFILE $dotfiles_profile
@@ -413,14 +420,14 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+n' -Function NextHistory
 # ############ ( ----------------     Modules        ----------------) ############
 
 
-Import-Module posh-git
-Import-Module Terminal-Icons
+# Import-Module posh-git
+# Import-Module Terminal-Icons
 
-# choco.exe autocompletion
-$ChocolateyProfile = "${Env:ChocolateyInstall}\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-    Import-Module "$ChocolateyProfile"
-}
+# # choco.exe autocompletion
+# $ChocolateyProfile = "${Env:ChocolateyInstall}\helpers\chocolateyProfile.psm1"
+# if (Test-Path($ChocolateyProfile)) {
+#     Import-Module "$ChocolateyProfile"
+# }
 
 
 # ############ ( ----------------     Prompt         ----------------) ############

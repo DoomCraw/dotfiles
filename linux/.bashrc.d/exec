@@ -7,7 +7,12 @@ eval "$(starship init bash)"
 # cd ~
 # cd /mnt/d/yandex_disk/projects/admin-infrastructure
 # cd /mnt/d/git
-cd /mnt/d/admin-infrastructure/ansible
+cd /mnt/d/git/job
+
+# SSH ~/.ssh/known_hosts plus ~/.ssh/config autocompletion
+complete -W \
+    "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | grep -v "\["` `grep -Ei '^Host' ~/.ssh/config | sed --regex 's,(^Host\ +|\*),,g'` `echo localhost ip6-localhost` | sort -u | uniq --unique;)" \
+    ssh
 
 # Start tmux
 if [ -z $TMUX ]; then

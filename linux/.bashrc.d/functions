@@ -1,3 +1,43 @@
+ssh_user_exits () {
+    local user=$(echo "$@"| cut -d '@' -f1)
+    local server=$(echo "$@" | cut -d '@' -f2)
+
+retcode=$(ssh $server << EOF
+set +o history
+if sudo getent shadow $user 2>&1 >/dev/null ; then
+    echo 0
+else
+    echo 1
+fi
+exit 0
+EOF
+)
+
+return  $retcode
+}
+
+create_ssh_user () {
+    local user=$(echo "$1"| cut -d '@' -f1)
+    local server=$(echo "$1" | cut -d '@' -f2)
+    local keyfile=$2
+    
+    key=$(cat $keyfile)
+
+    if ! ssh_user_exists "$user@$server"; then
+         ssh $server << EOF
+set +o history
+USER_GROUPS="wheel,systemd-journal,adm,
+sudo useradd -m -U -G -s /bin/bash $user
+sudo mkdir /home/$user/.ssh
+cat "$key" | sudo tee /home/$user/.ssh/authorized_keys >/dev/null
+sudo chmod 600 /home/$user/.ssh/authorized_keys
+sudo chmod 0700 /home/$user/.ssh/
+sudo chown $user:$user -R /home/$user/.ssh/
+exit 0
+EOF
+    fi
+}
+
 _list_ssh_tunnels () {
     ps axu | grep -i 'ssh' | grep -Evi 'grep|ssh-agent'
 }
