@@ -19,6 +19,7 @@ $wingetPackages = @(
         'DEVCOM.JetBrainsMonoNerdFont',
         'Discord.Discord',
         'eza-community.eza',
+        'ezwinports.make',
         'Git.Git',
         'Google.Chrome',
         'Hashicorp.Terraform',
