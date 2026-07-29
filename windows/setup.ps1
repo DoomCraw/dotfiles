@@ -186,6 +186,8 @@ function Install-WSL {
     Push-Location $Global:dotfilesDir\windows
     
     . .\components\wsl\setup.ps1
+    # . .\components\wsl\setup.ps1 -Name "workspace"
+    # . .\components\wsl\setup.ps1 -Name "docker" -Command "curl -fsSL https://get.docker.com | sh -"
 
     Pop-Location
 }
