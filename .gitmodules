@@ -1,0 +1,36 @@
+[submodule "linux/.vim/bundle/vim-airline-themes"]
+	path = linux/.vim/bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes
+[submodule "linux/.vim/bundle/vim-airline"]
+	path = linux/.vim/bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "linux/.vim/bundle/vim-polyglot"]
+	path = linux/.vim/bundle/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
+[submodule "linux/.vim/bundle/everforest"]
+	path = linux/.vim/bundle/everforest
+	url = https://github.com/sainnhe/everforest
+[submodule "linux/.vim/bundle/gruvbox"]
+	path = linux/.vim/bundle/gruvbox
+	url = https://github.com/morhetz/gruvbox
+[submodule "linux/.vim/bundle/iceberg.vim"]
+	path = linux/.vim/bundle/iceberg.vim
+	url = https://github.com/cocopon/iceberg.vim
+[submodule "linux/.vim/bundle/nerdtree"]
+	path = linux/.vim/bundle/nerdtree
+	url = https://github.com/preservim/nerdtree
+[submodule "linux/.vim/bundle/ansible-vim"]
+	path = linux/.vim/bundle/ansible-vim
+	url = https://github.com/pearofducks/ansible-vim
+[submodule "linux/.vim/bundle/coc.nvim"]
+	path = linux/.vim/bundle/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
+[submodule "linux/.vim/bundle/Jenkinsfile-vim-syntax"]
+	path = linux/.vim/bundle/Jenkinsfile-vim-syntax
+	url = https://github.com/martinda/Jenkinsfile-vim-syntax
+[submodule "linux/.vim/bundle/ale"]
+	path = linux/.vim/bundle/ale
+	url = https://github.com/dense-analysis/ale
+[submodule "linux/.tmux/plugins/tpm"]
+	path = linux/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
