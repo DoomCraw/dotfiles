@@ -59,7 +59,7 @@ if ((Get-Volume).DriveLetter -eq 'D') {
     $wslDir    = "${Env:USERPROFILE}\Documents\vms\wsl"
 }
 
-$wslName   = 'workspace2'
+$wslName   = 'workspace'
 $wslImage  = @{
     OutFile = "${imagesDir}\ubuntu-26.04-server-cloudimg-amd64-root.tar.xz"
     Uri     = @(

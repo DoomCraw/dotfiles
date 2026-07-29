@@ -82,14 +82,14 @@ install_ansible () {
 
 install_awscli () {
     curl -fsSL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
-    unzip awscliv2.zip
+    unzip awscliv2.zip > /dev/null 2>&1
     ./aws/install
     rm -rf ./aws ./awscliv2.zip
 }
 
 
 install_common () {
-    apt update -y && \
+    apt update -y > /dev/null 2>&1 && \
         apt install -y \
             ansible-lint \
             apt-transport-https \
@@ -134,7 +134,8 @@ install_common () {
             wget \
             xclip \
             xorriso \
-            zip
+            zip \
+            > /dev/null 2>&1
 }
 
 
@@ -201,7 +202,7 @@ install_npiperelay () {
     [ -d $npiperelay_path ] && rm -rf $npiperelay_path
     curl -fsSL https://github.com/jstarks/npiperelay/releases/latest/download/npiperelay_windows_amd64.zip \
         -o npiperelay_windows_amd64.zip
-    unzip ./npiperelay_windows_amd64.zip -d $npiperelay_path
+    unzip ./npiperelay_windows_amd64.zip -d $npiperelay_path > /dev/null 2>&1
     rm -f ./npiperelay_windows_amd64.zip
 
     unset npiperelay_path
@@ -304,14 +305,15 @@ install_component () {
 
 
 upgrade_os () {
-    apt update -y && \
+    apt update -y > /dev/null 2>&1 && \
         apt dist-upgrade \
             -o "Dpkg::Options::=--force-confold" \
             -o "Dpkg::Options::=--force-confdef" \
             -y \
             --allow-downgrades \
             --allow-remove-essential \
-            --allow-change-held-packages
+            --allow-change-held-packages \
+            > /dev/null 2>&1
 }
 
 
