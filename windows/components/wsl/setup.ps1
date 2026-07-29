@@ -1,3 +1,29 @@
+@'
+info () {}
+warn () {}
+error () {}
+success () {}
+
+Stage 1:
+Start WSL installation.
+WSL does not installed.
+Installing WSL...
+Done.
+WSL distribution installation will be continued after reboot.
+
+Stage 2:
+Start WSL installation.
+Downloading WSL image $wslImage from $wslImageUrl...
+Done.
+Import image $wslImage.
+Done.
+Start Linux firstboot init script...
+Done.
+Setup Linux dotfiles..
+Done.
+WSL distribution setup finished.
+'@ | Out-Null
+
 function Set-Registry {
     Param (
         [PSCustomObject]$Path,
@@ -33,13 +59,13 @@ if ((Get-Volume).DriveLetter -eq 'D') {
     $wslDir    = "${Env:USERPROFILE}\Documents\vms\wsl"
 }
 
-$wslName   = 'workspace'
+$wslName   = 'workspace2'
 $wslImage  = @{
-    OutFile = "${imagesDir}\ubuntu-24.04-server-cloudimg-amd64-root.tar.xz"
+    OutFile = "${imagesDir}\ubuntu-26.04-server-cloudimg-amd64-root.tar.xz"
     Uri     = @(
         'https://cloud-images.ubuntu.com',
-        'releases/24.04/release-20251031',
-        'ubuntu-24.04-server-cloudimg-amd64-root.tar.xz'
+        'releases/26.04/release-20260720',
+        'ubuntu-26.04-server-cloudimg-amd64-root.tar.xz'
     ) -join '/'
 }
 
@@ -61,9 +87,11 @@ wsl --shutdown
 
 wsl --import $wslName $wslDir\$wslName $wslImage.OutFile
 wsl --set-default $wslName
-wsl -d $wslName -u root --shell-type standard /bin/bash -c "/bin/bash `$(wslpath '${PSScriptRoot}\firstboot.sh') `"$(${Env:USERNAME}.ToLower())`" `"$(${Env:COMPUTERNAME}.ToLower())`""
+# wsl -d $wslName -u root --shell-type standard /bin/bash -c "/bin/bash `$(wslpath '${PSScriptRoot}\firstboot.sh') `"$(${Env:USERNAME}.ToLower())`" `"$(${Env:COMPUTERNAME}.ToLower())`""
+wsl -d $wslName -u root --shell-type standard /bin/bash -c "/bin/bash `$(wslpath '${PSScriptRoot}\firstboot.sh') `"valeriy.z`" `"$(${Env:COMPUTERNAME}.ToLower())`""
 wsl -t $wslName
-wsl -d $wslName -u "$(${Env:USERNAME}.ToLower())" --shell-type standard /bin/bash -c 'cd ~; curl -fsSL https://raw.githubusercontent.com/DoomCraw/dotfiles/refs/heads/main/linux/setup.sh | sudo /bin/bash -'
+# wsl -d $wslName -u "$(${Env:USERNAME}.ToLower())" --shell-type standard /bin/bash -c 'cd ~; curl -fsSL https://raw.githubusercontent.com/DoomCraw/dotfiles/refs/heads/main/linux/setup.sh | sudo /bin/bash -'
+wsl -d $wslName -u "valeriy.z" --shell-type standard /bin/bash -c 'cd ~; curl -fsSL https://raw.githubusercontent.com/DoomCraw/dotfiles/refs/heads/main/linux/setup.sh | sudo /bin/bash -'
 
 
 Exit 0
