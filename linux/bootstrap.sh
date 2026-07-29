@@ -40,6 +40,7 @@ if [ ! -d .vim/autoload -a ! -d .vim/bundle ]; then
     "https://github.com/sainnhe/everforest"
     "https://github.com/morhetz/gruvbox"
     "https://github.com/cocopon/iceberg.vim"
+    "https://github.com/nordtheme/vim.git nord"
     "https://github.com/preservim/nerdtree"
     "https://github.com/pearofducks/ansible-vim"
     "https://github.com/neoclide/coc.nvim"

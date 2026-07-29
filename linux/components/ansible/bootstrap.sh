@@ -14,8 +14,6 @@ if [ -d $venv_path ]; then
 fi
 
 pushd ~
-pip install pip --upgrade
-pip install venv
 
 python3 -m venv $venv_path
 source ${venv_path}/bin/activate

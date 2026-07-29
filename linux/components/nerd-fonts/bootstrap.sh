@@ -12,7 +12,7 @@ wget 'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrains
 
 
 for zip_file in *.zip; do
-    unzip -of "${zip_file}"
+    unzip "${zip_file}"
 done
 
 
