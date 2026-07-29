@@ -191,8 +191,8 @@ install_nodejs () {
     # apt update -y && \
     #     apt install -y nodejs
     curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | /bin/bash -
-    source ~/.nvm/nvm.sh
-    nvm install 24
+    source ~/.bashrc
+    nvm install node
 }
 
 
